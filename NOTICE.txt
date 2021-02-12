@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Error><Code>PermanentRedirect</Code><Message>The bucket you are attempting to access must be addressed using the specified endpoint. Please send all future requests to this endpoint.</Message><Endpoint>s3.amazonaws.com</Endpoint><Bucket>quickstart-ci-scripts</Bucket><RequestId>VRNBZVPQJBVH1ZTZ</RequestId><HostId>5qtc6FrLbi5mXGf0Yy7pcwVUnX7k5ABwrCacCx11uf//Q9RCh3CNdhJY7kb9fCp+xvwCJ9TWl2M=</HostId></Error>
