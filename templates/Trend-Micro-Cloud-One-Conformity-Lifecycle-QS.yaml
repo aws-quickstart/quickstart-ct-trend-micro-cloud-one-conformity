@@ -1,0 +1,439 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >-
+  Deploy Trend Micro Cloud One Conformity LifeCycle hook in AWS Control Tower.
+  **WARNING** This template creates resources in your AWS account. You will be
+  billed for the AWS resources used if you create a stack from this template.
+  (qp-1rikge54a)
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: "Control Tower lifecycle event handler configuration"
+        Parameters:
+          - ApiKey
+          - CloudOneConformityRegion
+          - LogRetention
+
+      - Label:
+          default: "(Optional) AWS Quick Start configuration"
+        Parameters:
+          - QSS3BucketName
+          - QSS3KeyPrefix
+
+    ParameterLabels:
+      ApiKey:
+        default: API Key
+      CloudOneConformityRegion:
+        default: Cloud One Conformity Region
+      LogRetention:
+        default: Log retention period
+
+      QSS3BucketName:
+        default: Quick Start S3 bucket name
+      QSS3KeyPrefix:
+        default: Quick Start S3 key prefix
+
+Parameters:
+  ApiKey:
+    Type: String
+    Description: Cloud One Conformity API key.
+    AllowedPattern: ".+"
+    NoEcho: True
+
+  CloudOneConformityRegion:
+    Type: String
+    Default: us-west-2
+    AllowedValues:
+      - ap-southeast-2
+      - eu-west-1
+      - us-west-2
+    Description: Cloud One Conformity region endpoint for your account.
+    AllowedPattern: ".+"
+
+  LogRetention:
+    Type: String
+    Description:
+      How long to retain logs from the Control Tower lifecycle event handler.
+    Default: "Forever"
+    AllowedValues:
+      - "Forever"
+      - "1d"
+      - "3d"
+      - "5d"
+      - "7d"
+      - "14d"
+      - "30d"
+      - "60d"
+      - "90d"
+      - "120d"
+      - "150d"
+      - "180d"
+      - "365d"
+      - "400d"
+      - "545d"
+      - "731d"
+      - "1827d"
+      - "3653d"
+
+  QSS3BucketName:
+    Type: String
+    Description:
+      "S3 bucket name for the Quick Start assets. Quick Start bucket name can
+      include numbers, lowercase letters, uppercase letters, and hyphens (-). It
+      cannot start or end with a hyphen (-)."
+    Default: "aws-quickstart"
+    ConstraintDescription:
+      "Quick Start bucket name can include numbers, lowercase letters, uppercase
+      letters, and hyphens (-). It cannot start or end with a hyphen (-)."
+    AllowedPattern: "^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$"
+  QSS3KeyPrefix:
+    Type: String
+    Description:
+      "S3 key prefix for the Quick Start assets. Quick Start key prefix can
+      include numbers, lowercase letters, uppercase letters, hyphens (-), and
+      forward slash (/)."
+    Default: "quickstart-ct-trend-micro-cloud-one-conformity/"
+    ConstraintDescription:
+      "Quick Start key prefix can include numbers, lowercase letters, uppercase
+      letters, hyphens (-), and forward slash (/)."
+    AllowedPattern: "^[0-9a-zA-Z-/]*$"
+
+Conditions:
+  # This condition will be true when we are using the default bucket
+  UsingDefaultBucket: !Equals [!Ref QSS3BucketName, "aws-quickstart"]
+
+  # This condition will be true when the user chooses to keep logs forever
+  NeverExpireLogs: !Equals [!Ref LogRetention, "Forever"]
+
+Mappings:
+  # This mapping is used to trigger an update across the organization when the
+  # release timestamp changes.
+  LifeCycleRelease:
+    Release:
+      Stamp: 1593439617
+
+  # This mapping is used to convert between the human-readable-ish parameter values
+  # and what we need for AWS::Logs::LogGroup RetentionInDays. There is special handling
+  # for the "Forever" case, see the log group for details.
+  LogRetentionMap:
+    "Forever":
+      Value: -1
+    "1d":
+      Value: 1
+    "3d":
+      Value: 3
+    "5d":
+      Value: 5
+    "7d":
+      Value: 7
+    "14d":
+      Value: 14
+    "30d":
+      Value: 30
+    "60d":
+      Value: 60
+    "90d":
+      Value: 90
+    "120d":
+      Value: 120
+    "150d":
+      Value: 150
+    "180d":
+      Value: 180
+    "365d":
+      Value: 365
+    "400d":
+      Value: 400
+    "545d":
+      Value: 545
+    "731d":
+      Value: 731
+    "1827d":
+      Value: 1827
+    "3653d":
+      Value: 3653
+
+Resources:
+  # This log group will hold logs from the lifecycle event handler Lambda function.
+  # We create the log group ourselves so the customer can control the retention period.
+  LifecycleEventHandlerLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName:
+        Fn::Sub:
+          - "/aws/lambda/${lambda}"
+          - lambda: !Ref LifecycleEventHandler
+      RetentionInDays:
+        Fn::If:
+          - NeverExpireLogs
+          - !Ref AWS::NoValue
+          - !FindInMap [LogRetentionMap, !Ref LogRetention, Value]
+
+  # This policy allows the Lambda function to create logs and invoke itself. We need
+  # to have the policy as a separate resource to avoid a circular dependency between
+  # the function, its role, and the log group that the function is allowed to write to.
+  #
+  # **IMPORTANT**: Make sure that any resource which could trigger the Lambda function
+  # has a DependsOn reference to this policy, otherwise CloudFormation could create
+  # the resource and call the function prior to it having permission to log or invoke
+  # itself.
+  LifecycleEventHandlerSelfReferentialPolicy:
+    Type: AWS::IAM::Policy
+    # This policy explicitly excludes a permission to create the log group, so that
+    # we can control the retention policy -- if Lambda creates the log group itself, it
+    # will use the default "Never expire", which may not be what the customer wants.
+    # We create the log group ourselves, so it's best if this policy depends on the log
+    # group to ensure that the function doesn't try to create a log stream before it has
+    # a log group to write to.
+    DependsOn: LifecycleEventHandlerLogGroup
+    Properties:
+      Roles:
+        - !Ref LifecycleEventHandlerRole
+      PolicyName: LogAndInvoke
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Action:
+              - "logs:CreateLogStream"
+              - "logs:PutLogEvents"
+            Resource:
+              Fn::Sub:
+                - "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${lambda}:log-stream:*"
+                - lambda: !Ref LifecycleEventHandler
+          - Effect: Allow
+            Action: "lambda:InvokeFunction"
+            Resource:
+              - !GetAtt LifecycleEventHandler.Arn
+
+  # This role gives the lifecycle function permissions to do most of its operations.
+  # The remaining operations are covered in LifecycleEventHandlerSelfReferentialPolicy,
+  # which needs to exist to break the dependency cycle between the function, its role,
+  # and the names / ARNs of the resources that it needs access to.
+  LifecycleEventHandlerRole:
+    Type: AWS::IAM::Role
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W11
+            reason:
+              "The list/get actions in the policy support all resources only."
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - !Sub lambda.${AWS::URLSuffix}
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: TMCloudOneConformityApiLambdaPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "organizations:ListRoots"
+                  - "organizations:ListAccounts"
+                  - "sts:GetCallerIdentity"
+                Resource: "*"
+              - Effect: "Allow"
+                Action:
+                  - "secretsmanager:GetSecretValue"
+                  - "secretsmanager:DescribeSecret"
+                Resource:
+                  - !Ref ApiKeySecret
+              - Effect: "Allow"
+                Action:
+                  - "sts:AssumeRole"
+                Resource:
+                  - !Sub "arn:${AWS::Partition}:iam::*:role/AWSControlTowerExecution"
+              - Effect: Allow
+                Action:
+                  - "iam:CreatePolicy"
+                  - "iam:GetRole"
+                  - "iam:GetPolicyVersion"
+                  - "iam:DetachRolePolicy"
+                  - "iam:GetPolicy"
+                  - "iam:DeletePolicy"
+                  - "iam:CreateRole"
+                  - "iam:DeleteRole"
+                  - "iam:AttachRolePolicy"
+                  - "iam:CreatePolicyVersion"
+                  - "iam:DeletePolicyVersion"
+                  - "iam:SetDefaultPolicyVersion"
+                  - "iam:UpdateAssumeRolePolicy"
+                  - "iam:ListAttachedRolePolicies"
+                Resource:
+                  - !Sub "arn:${AWS::Partition}:iam::*:role/CloudOneConformityConnectorRole"
+                  - !Sub "arn:${AWS::Partition}:iam::*:policy/CloudOneConformityConnectorPolicy*"
+              - Effect: Allow
+                Action:
+                  - kms:Decrypt
+                Resource: !GetAtt SecretEncryptionKey.Arn
+                Condition:
+                  StringEquals:
+                    kms:ViaService: !Sub secretsmanager.${AWS::Region}.${AWS::URLSuffix}
+                    kms:CallerAccount: !Sub ${AWS::AccountId}
+
+  # This function handles events from AWS CloudFormation and AWS Control Tower
+  # (via Amazon EventBridge) to enroll, update, and remove accounts from
+  # Trend Micro Cloud One Workload Security.
+  LifecycleEventHandler:
+    Type: AWS::Lambda::Function
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W58
+            reason:
+              "Permissions to CloudWatch logs are inherited from
+              LifecycleEventHandlerSelfReferentialPolicy."
+    Properties:
+      Description:
+        Configures Cloud One Conformity account for new AWS Control Tower
+        accounts.
+      Environment:
+        Variables:
+          ConformityRegionEndpoint: !Ref CloudOneConformityRegion
+          Nonce: !FindInMap [LifeCycleRelease, Release, Stamp]
+      Code:
+        # The QuickStart pattern is ${QSS3BucketName}-${AWS::Region}, but for testing
+        # we want to be able to give our own bucket name without the region getting
+        # tacked on to the end.
+        S3Bucket:
+          !If [
+            UsingDefaultBucket,
+            !Sub "${QSS3BucketName}-${AWS::Region}",
+            !Ref QSS3BucketName,
+          ]
+        S3Key: !Sub "${QSS3KeyPrefix}functions/packages/c1c-controltower-lifecycle.zip"
+      Handler: c1c_controltower_lifecycle.lambda_handler
+      Runtime: python3.7
+      Role: !GetAtt LifecycleEventHandlerRole.Arn
+      MemorySize: 1024
+      Timeout: 900
+
+  # This secret holds the Trend Micro Cloud One Conformity API key.
+  ApiKeySecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: "TrendMicro/CloudOne/ConformityApiKey"
+      SecretString: !Sub |
+        {
+          "ApiKey": "${ApiKey}"
+        }
+      KmsKeyId: !GetAtt SecretEncryptionKey.Arn
+
+  # This resource policy controls which principals are permitted to
+  # access the Trend Micro Cloud One Conformity API key.
+  ApiKeySecretResourcePolicy:
+    Type: AWS::SecretsManager::ResourcePolicy
+    Properties:
+      SecretId: !Ref ApiKeySecret
+      ResourcePolicy:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS:
+                - !GetAtt LifecycleEventHandlerRole.Arn
+            Action: "secretsmanager:GetSecretValue"
+            Resource: !Ref ApiKeySecret
+
+  # This customer-managed KMS key is used to protect access to the API key stored in
+  # AWS Secrets Manager.
+  SecretEncryptionKey:
+    Type: AWS::KMS::Key
+    Properties:
+      Description:
+        "This is the KMS key used to encrypt/decrypt secrets for the Trend Micro
+        Cloud One Conformity lifecycle function"
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: "2012-10-17"
+        Id: key-default-1
+        Statement:
+          - Sid: Allow administration of the key
+            Effect: Allow
+            Principal:
+              AWS: !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:root
+            Action:
+              - kms:Create*
+              - kms:Describe*
+              - kms:Enable*
+              - kms:List*
+              - kms:Put*
+              - kms:Update*
+              - kms:Revoke*
+              - kms:Disable*
+              - kms:Get*
+              - kms:Delete*
+              - kms:ScheduleKeyDeletion
+              - kms:CancelKeyDeletion
+            Resource: "*"
+          - Sid: Allow use of the key
+            Effect: Allow
+            Principal:
+              AWS: !Sub ${AWS::AccountId}
+            Action:
+              - kms:Encrypt
+              - kms:Decrypt
+              - kms:ReEncrypt
+              - kms:GenerateDataKey
+              - kms:CreateGrant
+              - kms:DescribeKey
+            Resource: "*"
+            Condition:
+              StringEquals:
+                kms:ViaService: !Sub secretsmanager.${AWS::Region}.${AWS::URLSuffix}
+                kms:CallerAccount: !Sub ${AWS::AccountId}
+
+  # This permission allows Amazon EventBridge to invoke the LifecycleEventHandler,
+  # which will happen when the EventRuleTrendMicroConformityLambdaTrigger rule matches.
+  EventTriggerLambdaPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt LifecycleEventHandler.Arn
+      Principal: !Sub events.${AWS::URLSuffix}
+      SourceArn: !GetAtt EventRuleTrendMicroConformityLambdaTrigger.Arn
+
+  # This rule looks for CreateManagedAccount and UpdateManagedAccount events
+  # from AWS Control Tower and forwards them to the LifecycleEventHandler.
+  # The function will enroll / update the managed account identified in the
+  # event.
+  EventRuleTrendMicroConformityLambdaTrigger:
+    Type: AWS::Events::Rule
+    DependsOn: LifecycleEventHandlerSelfReferentialPolicy
+    Properties:
+      Description: Capture Control Tower LifeCycle events and trigger an action
+      EventPattern:
+        detail:
+          eventName:
+            - CreateManagedAccount
+            - UpdateManagedAccount
+          eventSource:
+            - !Sub controltower.${AWS::URLSuffix}
+        detail-type:
+          - AWS Service Event via CloudTrail
+        source:
+          - aws.controltower
+      Name: C1ConformityCaptureControlTowerLifeCycleEvents
+      State: ENABLED
+      Targets:
+        - Arn: !GetAtt "LifecycleEventHandler.Arn"
+          Id: IDEventRuleTrendMicroConformityLambdaTrigger
+
+  # This custom resource triggers the LifecycleEventHandler when the resource
+  # is created or the LifeCycleRelease.Release.Stamp value changes. Triggering the
+  # function will cause it to re-scan the organization and enroll / update all of
+  # the managed accounts.
+  CloudFormationLifecycleTrigger:
+    Type: Custom::LifecycleTrigger
+    DependsOn: LifecycleEventHandlerSelfReferentialPolicy
+    Properties:
+      ServiceToken: !GetAtt "LifecycleEventHandler.Arn"
+      Nonce: !FindInMap [LifeCycleRelease, Release, Stamp]

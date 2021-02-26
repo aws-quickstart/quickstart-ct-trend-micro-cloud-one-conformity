@@ -1,0 +1,13 @@
+{
+  "RequestType": "Create",
+  "ServiceToken": "arn:aws:lambda:us-east-1:012345678901:function:c1clh2-ConnectorApiLambdaFunction-174IQVLM7HW6Q",
+  "ResponseURL": "https://cloudformation-custom-resource-response-useast1.s3.amazonaws.com/REDACTED",
+  "StackId": "arn:aws:cloudformation:us-east-1:012345678901:stack/c1clh2/f40de650-aa62-11ea-9ae5-0a803f1342f3",
+  "RequestId": "1a057d28-9543-416e-8f55-24e4c5ce026d",
+  "LogicalResourceId": "LifeCycleConfig",
+  "ResourceType": "Custom::CopyResource",
+  "ResourceProperties": {
+    "ServiceToken": "arn:aws:lambda:us-east-1:012345678901:function:c1clh2-ConnectorApiLambdaFunction-174IQVLM7HW6Q",
+    "Nonce": "1591713437"
+  }
+}
