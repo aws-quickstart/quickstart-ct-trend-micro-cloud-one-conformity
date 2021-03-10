@@ -110,6 +110,7 @@
             "elasticloadbalancing:DescribeTags",
             "elasticloadbalancing:DescribeTargetGroups",
             "elasticloadbalancing:DescribeTargetHealth",
+            "elasticloadbalancing:DescribeRules",
             "iam:GenerateCredentialReport",
             "iam:GetAccessKeyLastUsed",
             "iam:GetAccountPasswordPolicy",
@@ -206,7 +207,9 @@
             "tag:GetTagKeys",
             "tag:GetTagValues"
           ],
-          "Resource": ["*"]
+          "Resource": [
+            "*"
+          ]
         }
       ]
     }
@@ -231,6 +234,7 @@
             "backup:DescribeBackupVault",
             "backup:ListBackupVaults",
             "backup:GetBackupVaultAccessPolicy",
+            "ce:GetAnomalies",
             "ce:GetAnomalyMonitors",
             "dax:DescribeClusters",
             "dax:ListTags",
@@ -359,11 +363,16 @@
             "ecs:DescribeTaskDefinition",
             "ecs:ListTaskDefinitions"
           ],
-          "Resource": ["*"]
+          "Resource": [
+            "*"
+          ]
         },
         {
           "Effect": "Allow",
-          "Action": ["s3:Get*", "s3:List*"],
+          "Action": [
+            "s3:Get*",
+            "s3:List*"
+          ],
           "Resource": "arn:aws:s3:::elasticbeanstalk*"
         }
       ]

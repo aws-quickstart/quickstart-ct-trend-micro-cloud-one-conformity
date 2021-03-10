@@ -111,7 +111,7 @@ Mappings:
   # release timestamp changes.
   LifeCycleRelease:
     Release:
-      Stamp: 1593439617
+      Stamp: 1615395250
 
   # This mapping is used to convert between the human-readable-ish parameter values
   # and what we need for AWS::Logs::LogGroup RetentionInDays. There is special handling
