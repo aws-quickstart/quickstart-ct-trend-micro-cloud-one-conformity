@@ -1,0 +1,4 @@
+{
+  "InvokeAction": "remove_account_config",
+  "account_id": "012345678901"
+}
