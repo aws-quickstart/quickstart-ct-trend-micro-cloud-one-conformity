@@ -19,6 +19,7 @@ Metadata:
           default: "(Optional) AWS Quick Start configuration"
         Parameters:
           - QSS3BucketName
+          - QSS3BucketRegion
           - QSS3KeyPrefix
 
     ParameterLabels:
@@ -31,6 +32,8 @@ Metadata:
 
       QSS3BucketName:
         default: Quick Start S3 bucket name
+      QSS3BucketRegion:
+        default: Quick Start S3 bucket region
       QSS3KeyPrefix:
         default: Quick Start S3 key prefix
 
@@ -87,6 +90,12 @@ Parameters:
       "Quick Start bucket name can include numbers, lowercase letters, uppercase
       letters, and hyphens (-). It cannot start or end with a hyphen (-)."
     AllowedPattern: "^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$"
+  QSS3BucketRegion:
+    Default: "us-east-1"
+    Description:
+      "The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is
+      hosted. When using your own bucket, you must specify this value."
+    Type: String
   QSS3KeyPrefix:
     Type: String
     Description:
