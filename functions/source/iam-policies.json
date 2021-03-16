@@ -332,6 +332,7 @@
             "secretsmanager:ListSecrets",
             "shield:DescribeSubscription",
             "ssm:DescribeParameters",
+            "ssm:DescribeSessions",
             "storagegateway:DescribeNFSFileShares",
             "storagegateway:DescribeSMBFileShares",
             "storagegateway:DescribeTapes",
