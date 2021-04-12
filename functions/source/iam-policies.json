@@ -362,7 +362,9 @@
             "wellarchitected:ListWorkloads",
             "wellarchitected:GetWorkload",
             "ecs:DescribeTaskDefinition",
-            "ecs:ListTaskDefinitions"
+            "ecs:ListTaskDefinitions",
+            "compute-optimizer:GetAutoScalingGroupRecommendations",
+            "compute-optimizer:GetEC2InstanceRecommendations"
           ],
           "Resource": [
             "*"
