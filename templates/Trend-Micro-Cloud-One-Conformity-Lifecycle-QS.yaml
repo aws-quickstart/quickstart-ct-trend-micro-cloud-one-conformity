@@ -6,6 +6,8 @@ Description: >-
   (qp-1rikge54a)
 
 Metadata:
+  QuickStartDocumentation:
+    EntrypointName: "Parameters for deploying into an AWS Control Tower"
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:
