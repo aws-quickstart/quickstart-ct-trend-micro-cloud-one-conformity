@@ -2,4 +2,18 @@
 // Briefly describe the software. Use consistent and clear branding. 
 // Include the benefits of using the software on AWS, and provide details on usage scenarios.
 
-<Describe how the software works on AWS.>
+{partner-company-name} {partner-product-short-name} provides continuous security, compliance, and governance in a SaaS platform, designed to help you manage misconfigurations of cloud resources in your AWS environment by mapping to the AWS Well-Architected Framework and leading compliance frameworks. 
+
+Optional integration with Amazon EventBridge can enhance scheduled scans into real time visibility, and auto-remediation project enhances the solution with AWS Lambda and Amazon SNS resources running inside the managed account to enable misconfigurations to be resolved programmatically further improving the posture of environments.
+
+Trend Micro Cloud One – Conformity helps you to continuously improve your security and compliance posture for AWS infrastructure through automated checks and clear remediation steps. The core platform provides over 520 out-of-the-box, real-time AWS infrastructure best practice rule checks with manual remediation and self-healing capability. The platform enables continuous detection and correction of all best practice violations.
+
+With Trend Micro Cloud One – Conformity you can:
+
+* Continuously build your cloud infrastructure to best practices by mapping the current environment state to the AWS Well-Architected Framework.
+* Audit your AWS deployments with numerous compliance standards, including PCI, GDPR, HIPAA,
+AICPA SOC, CIS, and NIST 800-53.
+* Manage compliance at scale in the cloud by monitoring activity and changes to the environment in real time.
+* Connect with your preferred ticketing or notification providers, including Slack, JIRA, Amazon Simple Notification Service (SNS), and ServiceNow.
+* Run exportable reports on your cloud environments for internal and external audits against
+benchmark standards.

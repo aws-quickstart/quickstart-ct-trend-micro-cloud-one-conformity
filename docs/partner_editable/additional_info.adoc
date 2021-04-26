@@ -3,21 +3,28 @@
 
 == Test the deployment
 // If steps are required to test the deployment, add them here. If not, remove the heading
+When the CloudFormation stack completed successfully, return to the Conformity console and all of your accounts will have been imported and the conformity bot will have begun scanning all of your AWS accounts to alert you about any misconfigurations or posture concerns!
 
 == Post-deployment steps
 // If post-deployment steps are required, add them here. If not, remove the heading
+As Conformity starts scanning your AWS accounts, most organizations will choose to prioritize high severity findings for investigation and remediation. 
+
+*Keeping the Conformity role up to date:* The Conformity bot is continuously improved to enhance visibility or add coverage for new AWS services. On occasion a new IAM permission may be required for the role in each protected account. When a new role is available, organizations using this Conformity for AWS Control Tower integration can simply update the CloudFormation stack using the template URL provided above in the deployment steps section, and the role in all current and future enrolled accounts will be updated to the most recent version of the Conformity role.
 
 == Best practices for using {partner-product-short-name} on AWS
 // Provide post-deployment best practices for using the technology on AWS, including considerations such as migrating data, backups, ensuring high performance, high availability, etc. Link to software documentation for detailed information.
 
-_Add any best practices for using the software._
+* https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/134086850/Set+up+SAML+SSO+integration+for+Cloud+Conformity[Configure SAML to manage access to your conformity account^]
+* https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/58982475/Communication+Channels[Configure notification to Security Teams for high severity violations through integrations like PagerDuty or Amazon SNS^]
+* Distribute responsibility for account remediation and visibility to account owners by configuring integrations with tools like Zendesk and Service Now for operations teams, or Jira and Slack for development teams.
+* https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/142278677/Profiles[Configure custom profiles^] to tailor monitoring for your security policy or individual accounts. Engage account owners to determine if specific frameworks like SOC2 or PCI should be included in evaluation.
 
-== Security
-// Provide post-deployment best practices for using the technology on AWS, including considerations such as migrating data, backups, ensuring high performance, high availability, etc. Link to software documentation for detailed information.
+// == Security
+// // Provide post-deployment best practices for using the technology on AWS, including considerations such as migrating data, backups, ensuring high performance, high availability, etc. Link to software documentation for detailed information.
 
-_Add any security-related information._
+// _Add any security-related information._
 
-== Other useful information
-//Provide any other information of interest to users, especially focusing on areas where AWS or cloud usage differs from on-premises usage.
+// == Other useful information
+// //Provide any other information of interest to users, especially focusing on areas where AWS or cloud usage differs from on-premises usage.
 
-_Add any other details that will help the customer use the software on AWS._
+// _Add any other details that will help the customer use the software on AWS._
