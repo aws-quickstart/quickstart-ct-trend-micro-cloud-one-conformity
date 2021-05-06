@@ -1,0 +1,12 @@
+project:
+  name: quickstart-ct-trend-micro-cloud-one-conformity
+  owner: quickstart@amazon.com
+  package_lambda: false
+tests:
+  onboarding-us-west-2:
+    parameters:
+      ApiKey: ''
+      CloudOneConformityRegion: 'us-west-2'
+    regions:
+      - us-west-2
+    template: Trend-Micro-Cloud-One-Conformity-Lifecycle-QS.yaml
