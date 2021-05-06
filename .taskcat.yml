@@ -9,4 +9,4 @@ tests:
       CloudOneConformityRegion: 'us-west-2'
     regions:
       - us-west-2
-    template: Trend-Micro-Cloud-One-Conformity-Lifecycle-QS.yaml
+    template: trend-micro-cloud-one-conformity-lifecycle.template.yaml
