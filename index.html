@@ -1362,8 +1362,8 @@ If your bucket is not in the same region where your AWS Control Tower is deploye
 <div class="literalblock">
 <div class="content">
 <pre>aws s3 cp --recursive \
-    s3://aws-quickstart-us-east-1/quickstart-ct-trend-micro-cloud-one-workload-security \
-    s3://your-bucket/quickstart-ct-trend-micro-cloud-one-workload-security</pre>
+    s3://aws-quickstart-us-east-1/quickstart-ct-trend-micro-cloud-one-conformity \
+    s3://your-bucket/quickstart-ct-trend-micro-cloud-one-conformity</pre>
 </div>
 </div>
 </td>
@@ -1375,7 +1375,7 @@ If your bucket is not in the same region where your AWS Control Tower is deploye
 <p>Review the content following your organization&#8217;s practices. You may want to read through the details of the CloudFormation stack to see exactly what it creates and what properties each resource has, and you may want to read through the source code for the Lambda function to see what it does.</p>
 </li>
 <li>
-<p>Launch the CloudFormation stack in the same region where your AWS Control Tower is deployed, providing the URL to the template. In the parameters, replace the default value for the <strong>Quick Start S3 bucket name</strong> and the <strong>Quick Start S3 key prefix</strong> with the name of your bucket and the prefix within the bucket where the content is stored. In the examples above, the prefix is the default, quickstart-ct-trend-micro-cloud-one-conformity/.</p>
+<p>Launch the CloudFormation stack in the same region where your AWS Control Tower is deployed, providing the URL to the template. In the parameters, replace the default value for the Quick Start S3 bucket name and the Quick Start S3 key prefix with the name of your bucket and the prefix within the bucket where the content is stored. In the examples above, the prefix is the default, quickstart-ct-trend-micro-cloud-one-conformity/.</p>
 </li>
 </ol>
 </div>
@@ -1596,7 +1596,7 @@ and to share your customizations with others.</p>
 </html>
 <!--
 repo commit:
-75565d7006f25767d3e55e0ed600de1b6eaf5867
+7b3067435978730be31dfbd90d11b6b0132bb431
 
 submodule config:
 +1259902ec92fdc66c5cc60b19148a78c3941f43e docs/boilerplate (heads/main)
