@@ -49,16 +49,15 @@ WARNING: If your bucket is not in the same region where your AWS Control Tower i
 You can use the AWS command-line interface to copy the content:
 ....
 aws s3 cp --recursive \
-    s3://aws-quickstart-us-east-1/quickstart-ct-trend-micro-cloud-one-conformity \
-    s3://your-bucket/quickstart-ct-trend-micro-cloud-one-conformity
+    s3://aws-quickstart-us-east-1/quickstart-ct-trend-micro-cloud-one-workload-security \
+    s3://your-bucket/quickstart-ct-trend-micro-cloud-one-workload-security
 ....
 ====
 +
 . Review the content following your organization's practices. You may want to read through the details of the CloudFormation stack to see exactly what it creates and what properties each resource has, and you may want to read through the source code for the Lambda function to see what it does.
-. Launch the CloudFormation stack in the same region where your AWS Control Tower is deployed, providing the URL to the template. In the parameters, replace the default value for the Quick Start S3 bucket name and the Quick Start S3 key prefix with the name of your bucket and the prefix within the bucket where the content is stored. In the examples above, the prefix is the default, quickstart-ct-trend-micro-cloud-one-conformity/.
+. Launch the CloudFormation stack in the same region where your AWS Control Tower is deployed, providing the URL to the template. In the parameters, replace the default value for the *Quick Start S3 bucket name* and the *Quick Start S3 key prefix* with the name of your bucket and the prefix within the bucket where the content is stored. In the examples above, the prefix is the default, quickstart-ct-trend-micro-cloud-one-conformity/.
 
 WARNING: If you deploy the stack in a different region than your AWS Control Tower, the lifecycle function will not receive events when new accounts are created or removed and will not automatically add or remove accounts in Conformity.
-
 
 == Best practices for using {partner-product-short-name} on AWS
 // Provide post-deployment best practices for using the technology on AWS, including considerations such as migrating data, backups, ensuring high performance, high availability, etc. Link to software documentation for detailed information.
