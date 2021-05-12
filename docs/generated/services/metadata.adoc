@@ -1,1 +1,18 @@
-// placeholder
+
+:template_aws_events_rule:
+:template_aws_iam_policy:
+:template_aws_iam_role:
+:template_aws_kms_key:
+:template_aws_lambda_function:
+:template_aws_lambda_permission:
+:template_aws_logs_loggroup:
+:template_aws_secretsmanager_resourcepolicy:
+:template_aws_secretsmanager_secret:
+:template_custom_lifecycletrigger:
+:template_events:
+:template_iam:
+:template_kms:
+:template_lambda:
+:template_lifecycletrigger:
+:template_logs:
+:template_secretsmanager:
