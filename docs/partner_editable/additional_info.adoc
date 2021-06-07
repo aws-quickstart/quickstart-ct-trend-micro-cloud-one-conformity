@@ -3,70 +3,71 @@
 
 == Test the deployment
 // If steps are required to test the deployment, add them here. If not, remove the heading
-When the CloudFormation stack completed successfully, return to the Conformity console and all of your accounts will have been imported and the conformity bot will have begun scanning all of your AWS accounts to alert you about any misconfigurations or posture concerns!
+After the AWS CloudFormation stack completes successfully, return to the {partner-product-short-name} console. Confirm that your accounts are imported and that the {partner-product-short-name} bot has started scanning your AWS accounts to alert you about any misconfigurations or posture concerns.
 
 == Post-deployment steps
 // If post-deployment steps are required, add them here. If not, remove the heading
-As Conformity starts scanning your AWS accounts, most organizations will choose to prioritize high severity findings for investigation and remediation. 
+As a best practice for scanning your AWS accounts, prioritize high-severity findings for investigation and remediation. 
 
-*Keeping the Conformity role up to date:* The Conformity bot is continuously improved to enhance visibility or add coverage for new AWS services. On occasion a new IAM permission may be required for the role in each protected account. When a new role is available, organizations using this Conformity for AWS Control Tower integration can simply update the CloudFormation stack using the template URL provided above in the deployment steps section, and the role in all current and future enrolled accounts will be updated to the most recent version of the Conformity role.
+Also keep the {partner-product-short-name} role up to date. The {partner-product-short-name} bot is continuously improved to enhance visibility or add coverage for new AWS services. Sometimes, a new IAM permission is required for the role in each protected account. To update the role, modify the CloudFormation stack using the template URL provided in the link:#_deployment_steps[Deployment steps] section. The role is updated to the most recent version in all current and future enrolled accounts.
 
 == Cleanup
 
-To remove the Control Tower lifecycle hook, identify and delete the CloudFormation stack. Protection for Managed Accounts which have already been added will remain in place. See the Conformity documentation for details on removing an account subscription.
+To remove the AWS Control Tower life cycle hook, identify and delete the CloudFormation stack. Managed accounts that have already been added remain protected. See the {partner-product-short-name} documentation for details about removing an account subscription.
 
-If you would like to remove all of the protection for managed accounts, you can send a remove_all invocation event to the lifecycle hook before deleting the CloudFormation stack.
+If you want to remove protection for all managed accounts, send a `remove_all` invocation event to the life cycle hook before deleting the CloudFormation stack. Follow these steps:
 
-. Log in to the AWS console for your organization's Control Tower Management account.
+. Log in to the AWS Management Console for your organization's AWS Control Tower management account.
 . Open the CloudFormation console.
-. Find the ConformityLifeCycleHook stack and open the Resources tab.
-. Find the LifecycleEventHandler row. It will have a Type value of AWS::Lambda::Function and there will be a link to the function. Click the link to open the Lambda console for the function.
-. In the Lambda function console, open the Test tab and create a new event with the event payload below:
+. Locate the *ConformityLifeCycleHook* stack and open the *Resources* tab.
+. On the *LifecycleEventHandler* row, locate the *Type* value *AWS::Lambda::Function*. Choose the link to open the AWS Lambda console for the function.
+. In the Lambda function console, open the *Test* tab and create a new event with the event payload:
 +
 ....
 {"InvokeAction":"remove_all"}
 ....
 +
-. Click Invoke to trigger the lifecycle hook with the remove_all event payload.
+. Choose *Invoke* to trigger the life cycle hook with the `remove_all` event payload.
 
-You can verify that removal has been triggered for each account in your organization by reviewing the output logs. 
+You can verify that the removal has been triggered for each account in your organization by reviewing the output logs. 
 
-== Self-Hosting
+== Self-host the Quick Start content
 
-Some customers may wish to self-host the Quick Start content; one popular reason for doing so is to ensure that the code you have reviewed is the code you deploy.
+If you want to ensure that the code you review is the code that you deploy, you can self-host the Quick Start content. Follow these steps:
 
-If you want to self-host this Quick Start, you will need to:
-
-. Create a bucket in the region where your AWS Control Tower is deployed. The bucket can be owned by any account as long as your Control Tower management account can access the content.
+. Create an S3 bucket in the Region where AWS Control Tower is deployed. The bucket can belong to any AWS account, as long as your AWS Control Tower management account can access the content.
 +
-WARNING: If your bucket is not in the same region where your AWS Control Tower is deployed, the stack deployment will fail.
+WARNING: If your bucket is not in the same Region where AWS Control Tower is deployed, the stack deployment will fail.
 +
-. Copy the CloudFormation template into your bucket. We recommend using the key quickstart-ct-trend-micro-cloud-one-conformity/templates/Trend-Micro-Cloud-One-Conformity-Lifecycle-QS.yaml.
-. Copy the Lambda function deployment package into your bucket. You can choose your own prefix, but the object path must end in functions/packages/c1c-controltower-lifecycle.zip. We recommend that you use quickstart-ct-trend-micro-cloud-one-conformity/functions/packages/c1c-controltower-lifecycle.zip
+. Copy the CloudFormation template into your bucket using the `quickstart-ct-trend-micro-cloud-one-conformity/templates/Trend-Micro-Cloud-One-Conformity-Lifecycle-QS.yaml` key.
+. Copy the Lambda function deployment package into your bucket. You can choose your own prefix, but the object path must end in `functions/packages/c1c-controltower-lifecycle.zip` (example: `quickstart-ct-trend-micro-cloud-one-conformity/functions/packages/c1c-controltower-lifecycle.zip`). 
 +
 [TIP]
 ====
-You can use the AWS command-line interface to copy the content:
+Use the AWS command-line interface to copy the content:
 ....
 aws s3 cp --recursive \
     s3://aws-quickstart-us-east-1/quickstart-ct-trend-micro-cloud-one-conformity \
-    s3://your-bucket/quickstart-ct-trend-micro-cloud-one-conformity
+    s3://<your-bucket>/quickstart-ct-trend-micro-cloud-one-conformity
 ....
+In this example, the S3 key prefix value is the default `quickstart-ct-trend-micro-cloud-one-conformity/` value.
 ====
 +
-. Review the content following your organization's practices. You may want to read through the details of the CloudFormation stack to see exactly what it creates and what properties each resource has, and you may want to read through the source code for the Lambda function to see what it does.
-. Launch the CloudFormation stack in the same region where your AWS Control Tower is deployed, providing the URL to the template. In the parameters, replace the default value for the Quick Start S3 bucket name and the Quick Start S3 key prefix with the name of your bucket and the prefix within the bucket where the content is stored. In the examples above, the prefix is the default, quickstart-ct-trend-micro-cloud-one-conformity/.
+. Review the content according to your organization's preferred practices. You can read the details of the CloudFormation stack to see what it creates and the properties of each resource. You can also learn about the Lambda function by reading its source code.
+. Using the URL to the template, launch the CloudFormation stack in the same Region where AWS Control Tower is deployed. Replace the default parameter value for the Quick Start S3 bucket name with the name of your bucket. Also replace the  Quick Start S3 key prefix with the name of the prefix in the bucket where the content is stored. 
 
-WARNING: If you deploy the stack in a different region than your AWS Control Tower, the lifecycle function will not receive events when new accounts are created or removed and will not automatically add or remove accounts in Conformity.
+WARNING: If you deploy the stack in a different Region than AWS Control Tower, the life cycle function will not receive events when new accounts are created or removed and will not automatically add or remove accounts in {partner-product-short-name}.
 
 
 == Best practices for using {partner-product-short-name} on AWS
 // Provide post-deployment best practices for using the technology on AWS, including considerations such as migrating data, backups, ensuring high performance, high availability, etc. Link to software documentation for detailed information.
 
-* https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/134086850/Set+up+SAML+SSO+integration+for+Cloud+Conformity[Configure SAML to manage access to your conformity account^]
-* https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/58982475/Communication+Channels[Configure notification to Security Teams for high severity violations through integrations like PagerDuty or Amazon SNS^]
-* Distribute responsibility for account remediation and visibility to account owners by configuring integrations with tools like Zendesk and Service Now for operations teams, or Jira and Slack for development teams.
-* https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/142278677/Profiles[Configure custom profiles^] to tailor monitoring for your security policy or individual accounts. Engage account owners to determine if specific frameworks like SOC2 or PCI should be included in evaluation.
+Best practices include:
+
+* Configure SAML to manage access to your {partner-product-short-name} account. For more information, see the https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/134086850/Set+up+SAML+SSO+integration+for+Cloud+Conformity[{partner-product-short-name} documentation^].
+* Configure notifications to security teams for high severity violations through integrations like PagerDuty or Amazon SNS. For more information, see the https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/58982475/Communication+Channels[{partner-product-short-name} documentation^].
+* Distribute responsibility for account remediation and visibility to account owners by configuring integrations with tools like Zendesk and ServiceNow for operations teams, or Jira and Slack for development teams.
+* Configure custom profiles to tailor monitoring for your security policy or individual accounts. Engage account owners to determine if specific frameworks like Service Organization Control 2 (SOC 2) or PCI should be included in evaluation. For more information, see the https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/142278677/Profiles[{partner-product-short-name} documentation^].
 
 // == Security
 // // Provide post-deployment best practices for using the technology on AWS, including considerations such as migrating data, backups, ensuring high performance, high availability, etc. Link to software documentation for detailed information.
