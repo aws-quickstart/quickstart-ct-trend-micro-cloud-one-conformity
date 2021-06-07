@@ -6,7 +6,7 @@ Deploying this Quick Start with default parameters builds the following {partner
 
 [#architecture1]
 .Quick Start architecture for {partner-product-short-name} on AWS
-image::../images/architecture_diagram.png[Architecture]
+image::../images/cloud-one-conformity-architecture-diagram.png[Architecture]
 
 * An account administrator enrolls new or existing AWS accounts in AWS Control Tower, which generates a lifecycle event.
 * The life cycle event invokes the life cycle Lambda function via an Amazon EventBridge rule.
