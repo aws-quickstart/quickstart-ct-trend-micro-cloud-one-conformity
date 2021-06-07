@@ -62,7 +62,7 @@ WARNING: If you deploy the stack in a different Region than AWS Control Tower, t
 == Best practices for using {partner-product-short-name} on AWS
 // Provide post-deployment best practices for using the technology on AWS, including considerations such as migrating data, backups, ensuring high performance, high availability, etc. Link to software documentation for detailed information.
 
-Best practices include:
+Follow these best practices:
 
 * Configure SAML to manage access to your {partner-product-short-name} account. For more information, see the https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/134086850/Set+up+SAML+SSO+integration+for+Cloud+Conformity[{partner-product-short-name} documentation^].
 * Configure notifications to security teams for high severity violations through integrations like PagerDuty or Amazon SNS. For more information, see the https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/58982475/Communication+Channels[{partner-product-short-name} documentation^].
