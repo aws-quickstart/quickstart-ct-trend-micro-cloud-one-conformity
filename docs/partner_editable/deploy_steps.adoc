@@ -31,14 +31,14 @@ endif::marketplace_subscription[]
 
 === Launch the Quick Start
 
-Each deployment takes about {deployment_time} to complete.
+The deployment takes about {deployment_time} to complete.
 
-. Sign in to your management account in AWS Control Tower as an administrator, and choose the following options to launch the AWS CloudFormation template.
+. Sign in to your AWS Control Tower management account as an administrator, and choose the following options to launch the AWS CloudFormation template.
 +
 [cols="1,1"]
 |===
-^|http://qs_launch_permalink[Deploy {partner-product-short-name} on AWS^]
-^|http://qs_template_permalink[View template^]
+^|https://fwd.aws/G5pGn?[Deploy {partner-product-short-name} on AWS^]
+^|https://fwd.aws/RAjp8?[View template^]
 |===
 . Check the AWS Region that’s displayed in the upper-right corner of the navigation bar, and change it if necessary. Be sure that the selected Region is where AWS Control Tower is deployed. 
 . On the *Create stack* page, keep the default setting for the template URL, and then choose *Next*.
