@@ -2,7 +2,7 @@
 // Identify your target audience and explain how/why they would use this Quick Start.
 //Avoid borrowing text from third-party websites (copying text from AWS service documentation is fine). Also, avoid marketing-speak, focusing instead on the technical aspect.
 
-This guide provides instructions for deploying the {partner-product-name} Quick Start reference architecture on the AWS Cloud. The Quick Start activates, deploys, and configures {partner-product-short-name} in an AWS Control Tower environment while taking full advantage of the resources pre-configured by AWS Control Tower as part of the initialization.
+This guide provides instructions for deploying the {partner-product-name} Quick Start reference architecture on the AWS Cloud. The Quick Start activates, deploys, and configures {partner-product-short-name} in a fully configured AWS Control Tower environment.
 
 This Quick Start is for users who want to improve security and compliance posture for AWS infrastructure through automated checks and clear remediation steps.
 
