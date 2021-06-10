@@ -11,7 +11,7 @@ Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:
-          default: "Control Tower life cycle event handler configuration"
+          default: "Control Tower lifecycle event handler configuration"
         Parameters:
           - ApiKey
           - CloudOneConformityRegion
@@ -59,7 +59,7 @@ Parameters:
   LogRetention:
     Type: String
     Description:
-      How long to retain logs from the Control Tower life cycle event handler.
+      How long to retain logs from the Control Tower lifecycle event handler.
     Default: "Forever"
     AllowedValues:
       - "Forever"
