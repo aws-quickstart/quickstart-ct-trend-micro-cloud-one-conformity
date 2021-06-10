@@ -15,7 +15,7 @@ Also keep the {partner-product-short-name} role up to date. The {partner-product
 
 To remove the AWS Control Tower life cycle hook, identify and delete the CloudFormation stack. Managed accounts that have already been added remain protected. See the {partner-product-short-name} documentation for details about removing an account subscription.
 
-If you want to remove protection for all managed accounts, send a `remove_all` invocation event to the life cycle hook before deleting the CloudFormation stack. Follow these steps:
+If you want to remove protection for all managed accounts, send a `remove_all` invocation event to the lifecycle hook before deleting the CloudFormation stack. Follow these steps:
 
 . Log in to the AWS Management Console for your organization's AWS Control Tower management account.
 . Open the CloudFormation console.
@@ -27,7 +27,7 @@ If you want to remove protection for all managed accounts, send a `remove_all` i
 {"InvokeAction":"remove_all"}
 ....
 +
-. Choose *Invoke* to trigger the life cycle hook with the `remove_all` event payload.
+. Choose *Invoke* to trigger the lifecycle hook with the `remove_all` event payload.
 
 You can verify that the removal has been triggered for each account in your organization by reviewing the output logs. 
 
@@ -56,7 +56,7 @@ In this example, the S3 key prefix value is the default `quickstart-ct-trend-mic
 . Review the content according to your organization's preferred practices. You can read the details of the CloudFormation stack to see what it creates and the properties of each resource. You can also learn about the Lambda function by reading its source code.
 . Using the URL to the template, launch the CloudFormation stack in the same Region where AWS Control Tower is deployed. Replace the default parameter value for the Quick Start S3 bucket name with the name of your bucket. Also replace the  Quick Start S3 key prefix with the name of the prefix in the bucket where the content is stored. 
 
-WARNING: If you deploy the stack in a different Region than AWS Control Tower, the life cycle function will not receive events when new accounts are created or removed and will not automatically add or remove accounts in {partner-product-short-name}.
+WARNING: If you deploy the stack in a different Region than AWS Control Tower, the lifecycle function will not receive events when new accounts are created or removed and will not automatically add or remove accounts in {partner-product-short-name}.
 
 
 == Best practices for using {partner-product-short-name} on AWS

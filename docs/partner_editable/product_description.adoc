@@ -4,11 +4,11 @@
 
 {partner-company-name} {partner-product-short-name} provides continuous security, compliance, and governance in a software as a service (SaaS) platform. It's designed to help you manage misconfigurations of cloud resources in your AWS environment by mapping to the AWS Well-Architected Framework and leading compliance frameworks. 
 
-The Quick Start also offers additional integration options to help improve the security and compliance posture of your environment. Amazon EventBridge integration can enhance scheduled scans with real-time visibility. Auto-remediation, configured with AWS Lambda and Amazon Amazon Simple Notification Service (Amazon SNS) resources running inside the managed account, can help resolve misconfigurations programmatically. Both of these integrations are optional. 
+The Quick Start also offers additional integration options to help improve the security and compliance posture of your environment. Amazon EventBridge integration can enhance scheduled scans with real-time visibility. Auto-remediation, configured with AWS Lambda and Amazon Simple Notification Service (Amazon SNS) resources running inside the managed account, helps resolve misconfigurations programmatically. Both of these integrations are optional. 
 
 //Optional integration with Amazon EventBridge can enhance scheduled scans into real-time visibility, and auto-remediation project enhances the solution with AWS Lambda and Amazon SNS resources running inside the managed account to enable misconfigurations to be resolved programmatically further improving the posture of environments.
 
-{partner-product-short-name} helps you continuously improve your security and compliance posture for AWS infrastructure through automated checks and remediation steps. The core platform provides over 520 out-of-the-box, real-time AWS infrastructure best practice rule checks with manual remediation and self-healing capability. The platform enables continuous detection and correction of all best practice violations.
+{partner-product-short-name} helps you continuously improve your security and compliance posture for AWS infrastructure through automated checks and remediation steps. The core platform provides over 520 real-time AWS infrastructure best practice rule checks with manual remediation and self-healing capability. The platform enables continuous detection and correction of all best practice violations.
 
 With {partner-product-short-name}, you can:
 
