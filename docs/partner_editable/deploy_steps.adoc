@@ -10,7 +10,7 @@ ifdef::marketplace_subscription[]
 This Quick Start requires a subscription to the SaaS offering for {partner-product-short-name} in AWS Marketplace.
 
 . Sign in to your AWS account.
-. Open the page for the {partner-product-short-name} SaaS offering in https://aws.amazon.com/marketplace/pp/B07MVH8NDF[AWS Marketplace^], and then choose *Continue to Subscribe*.
+. Open the page for the {partner-product-short-name} SaaS offering in https://aws.amazon.com/marketplace/pp/prodview-g232pyu6l55l4[AWS Marketplace^], and then choose *Continue to Subscribe*.
 . Choose the contract duration, provide the renewal settings, select the contract options to be activated with your contract, and choose *Create contract*.
 +
 image::../images/software_contract.png[Software Contract]
