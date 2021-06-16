@@ -8,7 +8,7 @@ The Quick Start also offers additional integration options to help improve the s
 
 //Optional integration with Amazon EventBridge can enhance scheduled scans into real-time visibility, and auto-remediation project enhances the solution with AWS Lambda and Amazon SNS resources running inside the managed account to enable misconfigurations to be resolved programmatically further improving the posture of environments.
 
-{partner-product-short-name} helps you continuously improve your security and compliance posture for AWS infrastructure through automated checks and remediation steps. The core platform provides over 520 real-time AWS infrastructure best practice rule checks with manual remediation and self-healing capability. The platform enables continuous detection and correction of all best practice violations.
+{partner-product-short-name} helps you continuously improve your security and compliance posture for AWS infrastructure through automated checks and remediation steps. The core platform provides over 520 real-time AWS infrastructure best practice rule checks with manual remediation and self-healing capability. The platform enables nearly continuous detection and correction of all best practice violations.
 
 With {partner-product-short-name}, you can:
 
