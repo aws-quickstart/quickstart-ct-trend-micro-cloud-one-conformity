@@ -3,7 +3,7 @@ Description: >-
   Deploy Trend Micro Cloud One Conformity LifeCycle hook in AWS Control Tower.
   **WARNING** This template creates resources in your AWS account. You will be
   billed for the AWS resources used if you create a stack from this template.
-  (qp-1rikge54a)
+  (qs-1s0rohedo)
 
 Metadata:
   QuickStartDocumentation:
@@ -11,7 +11,7 @@ Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:
-          default: "Control Tower lifecycle event handler configuration"
+          default: "Control tower lifecycle event handler configuration"
         Parameters:
           - ApiKey
           - CloudOneConformityRegion
@@ -26,9 +26,9 @@ Metadata:
 
     ParameterLabels:
       ApiKey:
-        default: API Key
+        default: APIKey
       CloudOneConformityRegion:
-        default: Cloud One Conformity Region
+        default: Cloud one conformity region
       LogRetention:
         default: Log retention period
 
@@ -59,7 +59,7 @@ Parameters:
   LogRetention:
     Type: String
     Description:
-      How long to retain logs from the Control Tower lifecycle event handler.
+      How long to retain logs from the control tower lifecycle event handler.
     Default: "Forever"
     AllowedValues:
       - "Forever"
@@ -92,12 +92,6 @@ Parameters:
       "Quick Start bucket name can include numbers, lowercase letters, uppercase
       letters, and hyphens (-). It cannot start or end with a hyphen (-)."
     AllowedPattern: "^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$"
-  QSS3BucketRegion:
-    Default: "us-east-1"
-    Description:
-      "The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is
-      hosted. When using your own bucket, you must specify this value."
-    Type: String
   QSS3KeyPrefix:
     Type: String
     Description:
@@ -372,19 +366,40 @@ Resources:
             Principal:
               AWS: !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:root
             Action:
-              - kms:Create*
-              - kms:Describe*
-              - kms:Enable*
-              - kms:List*
-              - kms:Put*
-              - kms:Update*
-              - kms:Revoke*
-              - kms:Disable*
-              - kms:Get*
-              - kms:Delete*
+              - kms:CreateAlias
+              - kms:CreateCustomKeyStore
+              - kms:CreateGrant
+              - kms:CreateKey
+              - kms:DescribeCustomKeyStores
+              - kms:DescribeKey
+              - kms:EnableKey
+              - kms:EnableKeyRotation
+              - kms:ListAliases
+              - kms:ListGrants
+              - kms:ListRetirableGrants
+              - kms:ListKeyPolicies
+              - kms:ListKeys
+              - kms:ListResourceTags
+              - kms:PutKeyPolicy
+              - kms:UpdateKeyDescription
+              - kms:UpdateCustomKeyStore
+              - kms:UpdateAlias
+              - kms:RevokeGrant
+              - kms:DisableKeyRotation
+              - kms:DisableKey
+              - kms:GetPublicKey
+              - kms:GetParametersForImport
+              - kms:GetKeyPolicy
+              - kms:GetKeyRotationStatus
+              - kms:DeleteCustomKeyStore
+              - kms:DeleteAlias
+              - kms:DeleteImportedKeyMaterial
               - kms:ScheduleKeyDeletion
               - kms:CancelKeyDeletion
             Resource: "*"
+            Condition:
+              StringEquals:
+                kms:CallerAccount: !Sub ${AWS::AccountId}
           - Sid: Allow use of the key
             Effect: Allow
             Principal:
