@@ -21,7 +21,6 @@ Metadata:
           default: "(Optional) AWS Quick Start configuration"
         Parameters:
           - QSS3BucketName
-          - QSS3BucketRegion
           - QSS3KeyPrefix
 
     ParameterLabels:
@@ -34,8 +33,6 @@ Metadata:
 
       QSS3BucketName:
         default: Quick Start S3 bucket name
-      QSS3BucketRegion:
-        default: Quick Start S3 bucket region
       QSS3KeyPrefix:
         default: Quick Start S3 key prefix
 
