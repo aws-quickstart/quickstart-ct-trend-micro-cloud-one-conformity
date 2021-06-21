@@ -2,5 +2,4 @@
 
 This Quick Start provides one deployment option:
 
-* *Deploy {partner-product-name}*. This option provisions {partner-product-name} in the Management Account of your AWS Control Tower environment.
-
+* *Deploy {partner-product-short-name}*. This option provisions {partner-product-short-name} in the management account of your AWS Control Tower environment.

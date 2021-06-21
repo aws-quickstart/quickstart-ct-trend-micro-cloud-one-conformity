@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.15">
-<title>Cloud One Conformity Control Tower Integration on the AWS Cloud</title>
+<title>Cloud One Conformity AWS Control Tower Integration on the AWS Cloud</title>
 <style>
 
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -182,7 +182,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
   padding-top:0;
   overflow:hidden;
   background:#283e5b;
-  border-bottom: 4px solid #435c7c;
+  /* border-bottom: 4px solid #435c7c; */
   width:320px;
   height:154px;
   top:0;
@@ -411,7 +411,7 @@ span.icon>.fa{cursor:default}
 a span.icon>.fa{cursor:inherit}
 .admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
 .admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
-.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";color: rgb(3, 87, 21);}
 .admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
 .admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
 .admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
@@ -747,8 +747,43 @@ p {
   font-weight  : 300 !important;
 }
 
-#toc.toc2 #toctitle{
-  background-image: url('images/AWS-Logo.svg');
+/* image layout */
+#toc.toc2 #toctitle {
+  background-image: url("images/AWS-Logo.svg");
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: center;
+  width: auto;
+  height: 15%;
+}
+
+/* Left Navbar size */
+#toc.toc2 {
+  width: 17%;
+  min-width: 15em;
+}
+
+/* auto width for main page */
+body.toc2 {
+  padding-left: 22%;
+  padding-right: 2%;
+}
+
+/* hide left nav bar if page size is smaller than 767px */
+@media screen and (max-width: 767px) {
+  #toc {
+      display: none !important;
+  }
+  body.toc2 {
+    padding-left: 1%;
+    padding-right: 1%;
+    position: relative;
+  }
+
+  #content {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
 }
 
 /* QS Tables */
@@ -790,7 +825,7 @@ p.footer-text a{color:#d7d8d8}
 <div id="toctitle"></div>
 <ul class="sectlevel1">
 <li><a href="#_overview">Overview</a></li>
-<li><a href="#_cloud_one_conformity_control_tower_integration_on_aws">Cloud One Conformity Control Tower Integration on AWS</a></li>
+<li><a href="#_cloud_one_conformity_aws_control_tower_integration_on_aws">Cloud One Conformity AWS Control Tower Integration on AWS</a></li>
 <li><a href="#_aws_costs">AWS costs</a></li>
 <li><a href="#_software_licenses">Software licenses</a></li>
 <li><a href="#_architecture">Architecture</a></li>
@@ -811,12 +846,12 @@ p.footer-text a{color:#d7d8d8}
 <li><a href="#_test_the_deployment">Test the deployment</a></li>
 <li><a href="#_post_deployment_steps">Post-deployment steps</a></li>
 <li><a href="#_cleanup">Cleanup</a></li>
-<li><a href="#_self_hosting">Self-Hosting</a></li>
+<li><a href="#_self_host_the_quick_start_content">Self-host the Quick Start content</a></li>
 <li><a href="#_best_practices_for_using_cloud_one_conformity_on_aws">Best practices for using Cloud One Conformity on AWS</a></li>
 <li><a href="#_faq">FAQ</a></li>
 <li><a href="#_parameter_reference">Parameter reference</a>
 <ul class="sectlevel2">
-<li><a href="#_parameters_for_deploying_into_an_aws_control_tower">Parameters for deploying into an AWS Control Tower</a></li>
+<li><a href="#_parameters_for_deploying_into_aws_control_tower">Parameters for deploying into AWS Control Tower</a></li>
 </ul>
 </li>
 <li><a href="#_send_us_feedback">Send us feedback</a></li>
@@ -829,7 +864,7 @@ p.footer-text a{color:#d7d8d8}
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<h2 id="_cloud_one_conformity_control_tower_integration_on_the_aws_cloud" class="discrete text-center">Cloud One Conformity Control Tower Integration on the AWS Cloud</h2>
+<h2 id="_cloud_one_conformity_aws_control_tower_integration_on_the_aws_cloud" class="discrete text-center">Cloud One Conformity AWS Control Tower Integration on the AWS Cloud</h2>
 <h2 id="_quick_start_reference_deployment" class="discrete text-left text-center">Quick Start Reference Deployment</h2>
 <div class="imageblock text-center">
 <div class="content">
@@ -837,8 +872,8 @@ p.footer-text a{color:#d7d8d8}
 </div>
 </div>
 <div class="paragraph text-center">
-<p><strong>May 2021</strong><br>
-<em>Geoff Baskwill, and Bryan Webster, Trend Micro</em><br>
+<p><strong>June 2021</strong><br>
+<em>Geoff Baskwill and Bryan Webster, Trend Micro</em><br>
 <em>Kishore Vinjam, AWS Marketplace team</em><br>
 <em>Shivansh Singh, AWS Quick Start team</em></p>
 </div>
@@ -864,10 +899,22 @@ report bugs, or submit feature ideas for this Quick Start.
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide provides instructions for deploying the Cloud One Conformity Quick Start reference architecture on the AWS Cloud. It seamlessly activate, deploy and configure Conformity in AWS Control Tower environment while taking full advantage of the resources pre-configured by AWS Control Tower as part of the initialization.</p>
+<p>This guide provides instructions for deploying the Cloud One Conformity AWS Control Tower Integration Quick Start reference architecture on the AWS Cloud. The Quick Start activates, deploys, and configures Cloud One Conformity in a fully configured AWS Control Tower environment.</p>
 </div>
 <div class="paragraph">
-<p>This Quick Start is for users who are looking to improve security and compliance posture for AWS infrastructure through automated checks and clear remediation steps.</p>
+<p>This Quick Start is for users who want to improve security and compliance posture for AWS infrastructure through automated checks and clear remediation steps.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Deploying this Quick Start does not guarantee an organization’s compliance with any laws, certifications, policies, or other regulations.
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -884,37 +931,36 @@ Amazon may share user-deployment information with the AWS Partner that collabora
 </div>
 </div>
 <div class="sect1">
-<h2 id="_cloud_one_conformity_control_tower_integration_on_aws">Cloud One Conformity Control Tower Integration on AWS</h2>
+<h2 id="_cloud_one_conformity_aws_control_tower_integration_on_aws">Cloud One Conformity AWS Control Tower Integration on AWS</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Trend Micro Cloud One Conformity provides continuous security, compliance, and governance in a SaaS platform, designed to help you manage misconfigurations of cloud resources in your AWS environment by mapping to the AWS Well-Architected Framework and leading compliance frameworks.</p>
+<p>Trend Micro Cloud One Conformity provides continuous security, compliance, and governance in a software as a service (SaaS) platform. It&#8217;s designed to help you manage misconfigurations of cloud resources in your AWS environment by mapping to the AWS Well-Architected Framework and leading compliance frameworks.</p>
 </div>
 <div class="paragraph">
-<p>Optional integration with Amazon EventBridge can enhance scheduled scans into real time visibility, and auto-remediation project enhances the solution with AWS Lambda and Amazon SNS resources running inside the managed account to enable misconfigurations to be resolved programmatically further improving the posture of environments.</p>
+<p>The Quick Start also offers additional integration options to help improve the security and compliance posture of your environment. Amazon EventBridge integration can enhance scheduled scans with real-time visibility. Auto-remediation, configured with AWS Lambda and Amazon Simple Notification Service (Amazon SNS) resources running inside the managed account, helps resolve misconfigurations programmatically. Both of these integrations are optional.</p>
 </div>
 <div class="paragraph">
-<p>Trend Micro Cloud One – Conformity helps you to continuously improve your security and compliance posture for AWS infrastructure through automated checks and clear remediation steps. The core platform provides over 520 out-of-the-box, real-time AWS infrastructure best practice rule checks with manual remediation and self-healing capability. The platform enables continuous detection and correction of all best practice violations.</p>
+<p>Cloud One Conformity helps you continuously improve your security and compliance posture for AWS infrastructure through automated checks and remediation steps. The core platform provides over 520 real-time AWS infrastructure best practice rule checks with manual remediation and self-healing capability. The platform enables nearly continuous detection and correction of all best practice violations.</p>
 </div>
 <div class="paragraph">
-<p>With Trend Micro Cloud One – Conformity you can:</p>
+<p>With Cloud One Conformity, you can:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Continuously build your cloud infrastructure to best practices by mapping the current environment state to the AWS Well-Architected Framework.</p>
+<p>Continuously build your AWS Cloud infrastructure to adhere to best practices by mapping the current environment state to the AWS Well-Architected Framework.</p>
 </li>
 <li>
-<p>Audit your AWS deployments with numerous compliance standards, including PCI, GDPR, HIPAA,
-AICPA SOC, CIS, and NIST 800-53.</p>
+<p>Audit your AWS deployments with numerous compliance standards, including Payment Card Industry Data Security Standard (PCI DSS), General Data Protection Regulation (GDPR), Health Insurance Portability and Accountability Act of 1996 (HIPAA), American Institute of Certified Public Accountants (AICPA) System and Organization Controls (SOC), Center for Internet Security (CIS), and National Institute of Standards and Technology Special Publication 800-53.</p>
 </li>
 <li>
-<p>Manage compliance at scale in the cloud by monitoring activity and changes to the environment in real time.</p>
+<p>Manage compliance at scale in the AWS Cloud by monitoring activity and changes to the environment in real time.</p>
 </li>
 <li>
-<p>Connect with your preferred ticketing or notification providers, including Slack, JIRA, Amazon Simple Notification Service (SNS), and ServiceNow.</p>
+<p>Connect with your preferred ticketing or notification providers, including Slack, Jira, Amazon SNS, and ServiceNow.</p>
 </li>
 <li>
-<p>Run exportable reports on your cloud environments for internal and external audits against
+<p>Run exportable reports on your AWS Cloud environments for internal and external audits against
 benchmark standards.</p>
 </li>
 </ul>
@@ -952,7 +998,7 @@ After you deploy the Quick Start, create <a href="https://docs.aws.amazon.com/aw
 <h2 id="_software_licenses">Software licenses</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Quick Start requires a subscription to the SaaS offering for Cloud One Conformity, which is available from <a href="https://aws.amazon.com/marketplace/pp/B07MVH8NDF" target="_blank" rel="noopener">AWS Marketplace</a>. Additional pricing, terms, and conditions may apply. For instructions, see <a href="#step-2.-subscribe-to-the-software-ami">step 2</a> in the deployment section.</p>
+<p>This Quick Start requires a subscription to the SaaS offering for Cloud One Conformity, which is available from <a href="https://aws.amazon.com/marketplace/pp/prodview-g232pyu6l55l4" target="_blank" rel="noopener">AWS Marketplace</a>. Additional pricing, terms, and conditions may apply. For instructions, see <a href="#step-2.-subscribe-to-the-software-ami">step 2</a> in the deployment section.</p>
 </div>
 </div>
 </div>
@@ -960,27 +1006,30 @@ After you deploy the Quick Start, create <a href="https://docs.aws.amazon.com/aw
 <h2 id="_architecture">Architecture</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Deploying this Quick Start with default parameters builds the following {partner-product-name-short} in the AWS Control Tower environment on the AWS Cloud.</p>
+<p>Deploying this Quick Start with default parameters builds the following Cloud One Conformity in the AWS Control Tower environment on the AWS Cloud.</p>
 </div>
 <div id="architecture1" class="imageblock">
 <div class="content">
-<img src="images/architecture_diagram.png" alt="Architecture">
+<img src="images/cloud-one-conformity-architecture-diagram.png" alt="Architecture">
 </div>
 <div class="title">Figure 1. Quick Start architecture for Cloud One Conformity on AWS</div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Admin enrolls new or existing AWS accounts into AWS Control Tower, which generates Lifecycle event with new account details.</p>
+<p>An administrator enrolls a new or existing AWS account in AWS Control Tower, generating a lifecycle event.</p>
 </li>
 <li>
-<p>The Lifecycle event triggers the Lifecycle Lambda function via the EventBridge rule to set up the new CloudOne integrations.</p>
+<p>The lifecycle event uses an Amazon Eventbridge rule to invoke a Lambda function.</p>
 </li>
 <li>
-<p>Lifecycle Lambda function assumes the role into newly created AWS account and creates a cross-account IAM role and registers the new AWS Account with CloudOne Conformity endpoint, calling external APIs.</p>
+<p>The Lambda function creates an Identity Access Management (IAM) cross-account role in the newly created AWS account.</p>
 </li>
 <li>
-<p>The API keys used to authenticate with the CloudOne endpoint are stored in the Secrets Manager in the Management account.</p>
+<p>The Lambda function queries AWS Secrets Manager for the API key secrets that are used to authenticate with the Cloud One Conformity endpoint.</p>
+</li>
+<li>
+<p>The Lambda function registers the new AWS account with the Cloud One Conformity endpoint.</p>
 </li>
 </ul>
 </div>
@@ -1125,7 +1174,7 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 <div class="sect3">
 <h4 id="_prepare_your_trend_micro_account">Prepare your Trend Micro account</h4>
 <div class="paragraph">
-<p>To use this Quick Start, you need a Cloud One Conformity account.</p>
+<p>To use this Quick Start, you must have a Cloud One Conformity account. See the <a href="#_deployment_steps">Deployment steps</a> section later in this guide.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1136,7 +1185,7 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Deploy Cloud One Conformity Control Tower Integration</strong>. This option provisions Cloud One Conformity Control Tower Integration in the Management Account of your AWS Control Tower environment.</p>
+<p><strong>Deploy Cloud One Conformity</strong>. This option provisions Cloud One Conformity in the management account of your AWS Control Tower environment.</p>
 </li>
 </ul>
 </div>
@@ -1171,10 +1220,10 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 <p>Sign in to your AWS account.</p>
 </li>
 <li>
-<p>Open the page for the <a href="https://aws.amazon.com/marketplace/pp/B07MVH8NDF" target="_blank" rel="noopener">Cloud One Conformity SaaS offering in AWS Marketplace</a>, and then choose <strong>Continue to Subscribe</strong>.</p>
+<p>Open the page for the Cloud One Conformity SaaS offering in <a href="https://aws.amazon.com/marketplace/pp/prodview-g232pyu6l55l4" target="_blank" rel="noopener">AWS Marketplace</a>, and then choose <strong>Continue to Subscribe</strong>.</p>
 </li>
 <li>
-<p>Select the <em>Contract Duration</em>, set the <em>Renewal Settings</em>, select the <em>Contract Options</em> to be activated with your contract, and select <strong>Create contract</strong> button.</p>
+<p>Choose the contract duration, provide the renewal settings, select the contract options to be activated with your contract, and choose <strong>Create contract</strong>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/software_contract.png" alt="Software Contract">
@@ -1182,24 +1231,37 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 </div>
 </li>
 <li>
-<p>You will be prompted to confirm the contract. If you agree to the pricing, select the <strong>Pay Now</strong> button. This will redirect you to the Conformity portal.</p>
+<p>You are prompted to confirm the contract. If you agree to the pricing, choose <strong>Pay Now</strong>. You are redirected to the Cloud One Conformity portal.</p>
 </li>
 <li>
-<p>After redirection to the Conformity portal, continue to create your account. During the account creation process you will be prompted to choose a region in which to host your data. Most organizations choose the region closest to the majority of their workloads. Some other organizations may have compliance requirements which drive their region selection.</p>
+<p>In the Cloud One Conformity portal, continue to create your account. Choose the Region in which to host your data. Most organizations choose the Region closest to the majority of their workloads. Some other organizations may have compliance requirements that affect their Region choice.</p>
 </li>
 <li>
-<p>Once your account has been created, you can log into the UI. From the Cloud One home page, select the Conformity tile. Skip the wizard which prompts addition of your first AWS account; the AWS Control Tower integration will manage this on your behalf.</p>
+<p>After your account is created, log in. On the Cloud One Conformity home page, choose the <strong>Conformity</strong> tile. Skip the wizard that prompts you to add your first AWS account; the AWS Control Tower integration adds the account for you.</p>
 <div class="imageblock">
 <div class="content">
-<img src="images/conformity_tile.png" alt="Conformity Tile">
+<img src="images/conformity_tile.png" alt="Cloud One Conformity tile">
 </div>
 </div>
 </li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The process of adding current and future AWS Control Tower accounts to the Cloud One Conformity console is automated.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="7">
 <li>
-<p>Instead of using the wizard in the console, we will be automating the process of adding all current and future AWS Control Tower Accounts to the Conformity console.</p>
-</li>
-<li>
-<p>In the Conformity console, click the arrow next to your name in the top right corner, then select ‘User settings’ followed by ‘API Keys’ from the left navigation and create a new API key. Be sure to save this string as it cannot be retrieved later. This key will be used to authenticate the automation from the AWS Control Tower Master to the Conformity API. More details on generating an API key can be found <a href="https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/77463659/Public+API+-+API+Keys" target="_blank" rel="noopener">here</a>.</p>
+<p>In the Cloud One Conformity console, choose the arrow next to your name in the top-right corner. Then choose <strong>User settings &gt; API Keys"</strong> from the left navigation and create a new API key. Be sure to save this string, as it cannot be retrieved later. This key is used to authenticate the automation from the AWS Control Tower management account to the Cloud One Conformity API. For more information about generating an API key, see the <a href="https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/77463659/Public+API+-+API+Keys" target="_blank" rel="noopener">Cloud One Conformity documentation</a>.</p>
 </li>
 </ol>
 </div>
@@ -1207,27 +1269,27 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 <div class="sect2">
 <h3 id="_launch_the_quick_start">Launch the Quick Start</h3>
 <div class="paragraph">
-<p>Each deployment takes about 15 minutes to complete.</p>
+<p>The deployment takes about 15 minutes to complete.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Sign in to your Management AWS account in AWS Control Tower as an admin, and choose the following options to launch the AWS CloudFormation template.</p>
+<p>Sign in to your AWS Control Tower management account as an administrator, and choose the following options to launch the AWS CloudFormation template.</p>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 66.6666%;">
-<col style="width: 33.3334%;">
+<col style="width: 50%;">
+<col style="width: 50%;">
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://qs_launch_permalink" target="_blank" rel="noopener">Deploy Cloud One Conformity on AWS</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://qs_template_permalink" target="_blank" rel="noopener">View template</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://fwd.aws/G5pGn?" target="_blank" rel="noopener">Deploy Cloud One Conformity on AWS</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://fwd.aws/RAjp8?" target="_blank" rel="noopener">View template</a></p></td>
 </tr>
 </tbody>
 </table>
 </li>
 <li>
-<p>Check the AWS Region that’s displayed in the upper-right corner of the navigation bar, and change it if necessary, to ensure that the selected region is same where AWS Control Tower was deployed.</p>
+<p>Check the AWS Region that’s displayed in the upper-right corner of the navigation bar, and change it if necessary. Be sure that the selected Region is where AWS Control Tower is deployed.</p>
 </li>
 <li>
 <p>On the <strong>Create stack</strong> page, keep the default setting for the template URL, and then choose <strong>Next</strong>.</p>
@@ -1236,7 +1298,7 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 <p>On the <strong>Specify stack details</strong> page, change the stack name if needed. Review the parameters for the template. Provide values for the parameters that require input. For all other parameters, review the default settings and customize them as necessary. For details on each parameter, see the <a href="#_parameter_reference">Parameter reference</a> section of this guide. When you finish reviewing and customizing the parameters, choose <strong>Next</strong>.</p>
 </li>
 <li>
-<p>The template requires 2 parameters; the first is the API Key generated in <strong>Subscribe to the Cloud One Conformity AMI</strong> section, and the second is the region selected when creating your Conformity account.</p>
+<p>Provide the two required parameters. The first parameter is the API key that is generated in the <strong>Subscribe to the Cloud One Conformity AMI</strong> section, and the second parameter is the Region you selected when creating your Cloud One Conformity account.</p>
 </li>
 <li>
 <p>On the <strong>Configure stack options</strong> page, you can <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html" target="_blank" rel="noopener">specify tags</a> (key-value pairs) for resources in your stack and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-add-tags.html" target="_blank" rel="noopener">set advanced options</a>. When you’re finished, choose <strong>Next</strong>.</p>
@@ -1262,7 +1324,7 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 <h2 id="_test_the_deployment">Test the deployment</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When the CloudFormation stack completed successfully, return to the Conformity console and all of your accounts will have been imported and the conformity bot will have begun scanning all of your AWS accounts to alert you about any misconfigurations or posture concerns!</p>
+<p>After the AWS CloudFormation stack completes successfully, return to the Cloud One Conformity console. Confirm that your accounts are imported and that the Cloud One Conformity bot has started scanning your AWS accounts to alert you about any misconfigurations or posture concerns.</p>
 </div>
 </div>
 </div>
@@ -1270,10 +1332,10 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 <h2 id="_post_deployment_steps">Post-deployment steps</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>As Conformity starts scanning your AWS accounts, most organizations will choose to prioritize high severity findings for investigation and remediation.</p>
+<p>As a best practice for scanning your AWS accounts, prioritize high-severity findings for investigation and remediation.</p>
 </div>
 <div class="paragraph">
-<p><strong>Keeping the Conformity role up to date:</strong> The Conformity bot is continuously improved to enhance visibility or add coverage for new AWS services. On occasion a new IAM permission may be required for the role in each protected account. When a new role is available, organizations using this Conformity for AWS Control Tower integration can simply update the CloudFormation stack using the template URL provided above in the deployment steps section, and the role in all current and future enrolled accounts will be updated to the most recent version of the Conformity role.</p>
+<p>Also keep the Cloud One Conformity role up to date. The Cloud One Conformity bot is continuously improved to enhance visibility or add coverage for new AWS services. Sometimes, a new IAM permission is required for the role in each protected account. To update the role, modify the CloudFormation stack using the template URL provided in the <a href="#_deployment_steps">Deployment steps</a> section. The role is updated to the most recent version in all current and future enrolled accounts.</p>
 </div>
 </div>
 </div>
@@ -1281,27 +1343,27 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 <h2 id="_cleanup">Cleanup</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To remove the Control Tower lifecycle hook, identify and delete the CloudFormation stack. Protection for Managed Accounts which have already been added will remain in place. See the Conformity documentation for details on removing an account subscription.</p>
+<p>To remove the AWS Control Tower lifecycle hook, identify and delete the CloudFormation stack. Managed accounts that have already been added remain protected. See the Cloud One Conformity documentation for details about removing an account subscription.</p>
 </div>
 <div class="paragraph">
-<p>If you would like to remove all of the protection for managed accounts, you can send a remove_all invocation event to the lifecycle hook before deleting the CloudFormation stack.</p>
+<p>If you want to remove protection for all managed accounts, send a <code>remove_all</code> invocation event to the lifecycle hook before deleting the CloudFormation stack. Follow these steps:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Log in to the AWS console for your organization&#8217;s Control Tower Management account.</p>
+<p>Log in to the AWS Management Console for your organization&#8217;s AWS Control Tower management account.</p>
 </li>
 <li>
 <p>Open the CloudFormation console.</p>
 </li>
 <li>
-<p>Find the ConformityLifeCycleHook stack and open the Resources tab.</p>
+<p>Locate the <strong>ConformityLifeCycleHook</strong> stack and open the <strong>Resources</strong> tab.</p>
 </li>
 <li>
-<p>Find the LifecycleEventHandler row. It will have a Type value of AWS::Lambda::Function and there will be a link to the function. Click the link to open the Lambda console for the function.</p>
+<p>On the <strong>LifecycleEventHandler</strong> row, locate the <strong>Type</strong> value <strong>AWS::Lambda::Function</strong>. Choose the link to open the AWS Lambda console for the function.</p>
 </li>
 <li>
-<p>In the Lambda function console, open the Test tab and create a new event with the event payload below:</p>
+<p>In the Lambda function console, open the <strong>Test</strong> tab and create a new event with the event payload:</p>
 <div class="literalblock">
 <div class="content">
 <pre>{"InvokeAction":"remove_all"}</pre>
@@ -1309,28 +1371,25 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 </div>
 </li>
 <li>
-<p>Click Invoke to trigger the lifecycle hook with the remove_all event payload.</p>
+<p>Choose <strong>Invoke</strong> to trigger the lifecycle hook with the <code>remove_all</code> event payload.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>You can verify that removal has been triggered for each account in your organization by reviewing the output logs. </p>
+<p>You can verify that the removal has been triggered for each account in your organization by reviewing the output logs. </p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_self_hosting">Self-Hosting</h2>
+<h2 id="_self_host_the_quick_start_content">Self-host the Quick Start content</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Some customers may wish to self-host the Quick Start content; one popular reason for doing so is to ensure that the code you have reviewed is the code you deploy.</p>
-</div>
-<div class="paragraph">
-<p>If you want to self-host this Quick Start, you will need to:</p>
+<p>If you want to ensure that the code you review is the code that you deploy, you can self-host the Quick Start content. Follow these steps:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create a bucket in the region where your AWS Control Tower is deployed. The bucket can be owned by any account as long as your Control Tower management account can access the content.</p>
+<p>Create an S3 bucket in the Region where AWS Control Tower is deployed. The bucket can belong to any AWS account, as long as your AWS Control Tower management account can access the content.</p>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -1338,17 +1397,17 @@ Certain Regions are available on an opt-in basis. For more information, see <a h
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-If your bucket is not in the same region where your AWS Control Tower is deployed, the stack deployment will fail.
+If your bucket is not in the same Region where AWS Control Tower is deployed, the stack deployment will fail.
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>Copy the CloudFormation template into your bucket. We recommend using the key quickstart-ct-trend-micro-cloud-one-conformity/templates/Trend-Micro-Cloud-One-Conformity-Lifecycle-QS.yaml.</p>
+<p>Copy the CloudFormation template into your bucket using the <code>quickstart-ct-trend-micro-cloud-one-conformity/templates/Trend-Micro-Cloud-One-Conformity-Lifecycle-QS.yaml</code> key.</p>
 </li>
 <li>
-<p>Copy the Lambda function deployment package into your bucket. You can choose your own prefix, but the object path must end in functions/packages/c1c-controltower-lifecycle.zip. We recommend that you use quickstart-ct-trend-micro-cloud-one-conformity/functions/packages/c1c-controltower-lifecycle.zip</p>
+<p>Copy the Lambda function deployment package into your bucket. You can choose your own prefix, but the object path must end in <code>functions/packages/c1c-controltower-lifecycle.zip</code> (example: <code>quickstart-ct-trend-micro-cloud-one-conformity/functions/packages/c1c-controltower-lifecycle.zip</code>).</p>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -1357,14 +1416,17 @@ If your bucket is not in the same region where your AWS Control Tower is deploye
 </td>
 <td class="content">
 <div class="paragraph">
-<p>You can use the AWS command-line interface to copy the content:</p>
+<p>Use the AWS command-line interface to copy the content:</p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>aws s3 cp --recursive \
     s3://aws-quickstart-us-east-1/quickstart-ct-trend-micro-cloud-one-conformity \
-    s3://your-bucket/quickstart-ct-trend-micro-cloud-one-conformity</pre>
+    s3://&lt;your-bucket&gt;/quickstart-ct-trend-micro-cloud-one-conformity</pre>
 </div>
+</div>
+<div class="paragraph">
+<p>In this example, the S3 key prefix value is the default <code>quickstart-ct-trend-micro-cloud-one-conformity/</code> value.</p>
 </div>
 </td>
 </tr>
@@ -1372,10 +1434,10 @@ If your bucket is not in the same region where your AWS Control Tower is deploye
 </div>
 </li>
 <li>
-<p>Review the content following your organization&#8217;s practices. You may want to read through the details of the CloudFormation stack to see exactly what it creates and what properties each resource has, and you may want to read through the source code for the Lambda function to see what it does.</p>
+<p>Review the content according to your organization&#8217;s preferred practices. You can read the details of the CloudFormation stack to see what it creates and the properties of each resource. You can also learn about the Lambda function by reading its source code.</p>
 </li>
 <li>
-<p>Launch the CloudFormation stack in the same region where your AWS Control Tower is deployed, providing the URL to the template. In the parameters, replace the default value for the Quick Start S3 bucket name and the Quick Start S3 key prefix with the name of your bucket and the prefix within the bucket where the content is stored. In the examples above, the prefix is the default, quickstart-ct-trend-micro-cloud-one-conformity/.</p>
+<p>Using the URL to the template, launch the CloudFormation stack in the same Region where AWS Control Tower is deployed. Replace the default parameter value for the Quick Start S3 bucket name with the name of your bucket. Also replace the  Quick Start S3 key prefix with the name of the prefix in the bucket where the content is stored.</p>
 </li>
 </ol>
 </div>
@@ -1386,7 +1448,7 @@ If your bucket is not in the same region where your AWS Control Tower is deploye
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-If you deploy the stack in a different region than your AWS Control Tower, the lifecycle function will not receive events when new accounts are created or removed and will not automatically add or remove accounts in Conformity.
+If you deploy the stack in a different Region than AWS Control Tower, the lifecycle function will not receive events when new accounts are created or removed and will not automatically add or remove accounts in Cloud One Conformity.
 </td>
 </tr>
 </table>
@@ -1396,19 +1458,22 @@ If you deploy the stack in a different region than your AWS Control Tower, the l
 <div class="sect1">
 <h2 id="_best_practices_for_using_cloud_one_conformity_on_aws">Best practices for using Cloud One Conformity on AWS</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Follow these best practices:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/134086850/Set+up+SAML+SSO+integration+for+Cloud+Conformity" target="_blank" rel="noopener">Configure SAML to manage access to your conformity account</a></p>
+<p>Configure SAML to manage access to your Cloud One Conformity account. For more information, see the <a href="https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/134086850/Set+up+SAML+SSO+integration+for+Cloud+Conformity" target="_blank" rel="noopener">Cloud One Conformity documentation</a>.</p>
 </li>
 <li>
-<p><a href="https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/58982475/Communication+Channels" target="_blank" rel="noopener">Configure notification to Security Teams for high severity violations through integrations like PagerDuty or Amazon SNS</a></p>
+<p>Configure notifications to security teams for high severity violations through integrations like PagerDuty or Amazon SNS. For more information, see the <a href="https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/58982475/Communication+Channels" target="_blank" rel="noopener">Cloud One Conformity documentation</a>.</p>
 </li>
 <li>
-<p>Distribute responsibility for account remediation and visibility to account owners by configuring integrations with tools like Zendesk and Service Now for operations teams, or Jira and Slack for development teams.</p>
+<p>Distribute responsibility for account remediation and visibility to account owners by configuring integrations with tools like Zendesk and ServiceNow for operations teams, or Jira and Slack for development teams.</p>
 </li>
 <li>
-<p><a href="https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/142278677/Profiles" target="_blank" rel="noopener">Configure custom profiles</a> to tailor monitoring for your security policy or individual accounts. Engage account owners to determine if specific frameworks like SOC2 or PCI should be included in evaluation.</p>
+<p>Configure custom profiles to tailor monitoring for your security policy or individual accounts. Engage account owners to determine if specific frameworks like Service Organization Control 2 (SOC 2) or PCI should be included in evaluation. For more information, see the <a href="https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/142278677/Profiles" target="_blank" rel="noopener">Cloud One Conformity documentation</a>.</p>
 </li>
 </ul>
 </div>
@@ -1445,16 +1510,16 @@ When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, 
 <p><strong>A.</strong> Launch the Quick Start templates from the links in this guide or from another S3 bucket. If you deploy the templates from a local copy on your computer or from a location other than an S3 bucket, you might encounter template-size limitations. For more information, see <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html" target="_blank" rel="noopener">AWS CloudFormation quotas</a>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Q.</strong> Where can I get further help with Partner solution?</p>
+<p><strong>Q.</strong> Where can I get further help with the Cloud One Conformity solution?</p>
 </div>
 <div class="paragraph">
-<p><strong>A.</strong> See FAQ at <a href="https://www.cloudconformity.com/frequently-asked-questions.html" class="bare">https://www.cloudconformity.com/frequently-asked-questions.html</a></p>
+<p><strong>A.</strong> See the FAQ at <a href="https://www.cloudconformity.com/frequently-asked-questions.html" class="bare">https://www.cloudconformity.com/frequently-asked-questions.html</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Q.</strong> How do I contact Trend Micro?</p>
 </div>
 <div class="paragraph">
-<p><strong>A.</strong> <a href="https://www.cloudconformity.com/contact-us.html" target="_blank" rel="noopener">Here</a> is the contact information of the Partner.</p>
+<p><strong>A.</strong> See the <a href="https://www.cloudconformity.com/contact-us.html" target="_blank" rel="noopener">Cloud One Conformity contact page</a>.</p>
 </div>
 </div>
 </div>
@@ -1474,9 +1539,9 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </table>
 </div>
 <div class="sect2">
-<h3 id="_parameters_for_deploying_into_an_aws_control_tower">Parameters for deploying into an AWS Control Tower</h3>
+<h3 id="_parameters_for_deploying_into_aws_control_tower">Parameters for deploying into AWS Control Tower</h3>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Control Tower lifecycle event handler configuration</caption>
+<caption class="title">Table 1. Control tower lifecycle event handler configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1491,22 +1556,22 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">API Key
+<td class="tableblock halign-left valign-top"><p class="tableblock">APIKey
 (<code>ApiKey</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cloud One Conformity API key.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud One Conformity Region
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud one conformity region
 (<code>CloudOneConformityRegion</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>us-west-2</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud One Conformity region endpoint for your account.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud One Conformity Region endpoint for your account.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Log retention period
 (<code>LogRetention</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Forever</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">How long to retain logs from the Control Tower lifecycle event handler.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">How long to retain logs from the control tower lifecycle event handler.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1529,19 +1594,13 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 <td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket name
 (<code>QSS3BucketName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aws-quickstart</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket region
-(<code>QSS3BucketRegion</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>us-east-1</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the S3 bucket for your copy of the Quick Start assets. Keep the default name unless you are customizing the template. Changing the name updates code references to point to a new Quick Start location. This name can include numbers, lowercase letters, uppercase letters, and hyphens, but do not start or end with a hyphen (-). See <a href="https://aws-quickstart.github.io/option1.html" class="bare">https://aws-quickstart.github.io/option1.html</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 key prefix
 (<code>QSS3KeyPrefix</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>quickstart-ct-trend-micro-cloud-one-conformity/</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S3 key prefix that is used to simulate a directory for your copy of the Quick Start assets. Keep the default prefix unless you are customizing the template. Changing this prefix updates code references to point to a new Quick Start location. This prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slashes (/). End with a forward slash. See <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html" class="bare">https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html</a> and <a href="https://aws-quickstart.github.io/option1.html" class="bare">https://aws-quickstart.github.io/option1.html</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1596,8 +1655,8 @@ and to share your customizations with others.</p>
 </html>
 <!--
 repo commit:
-7b3067435978730be31dfbd90d11b6b0132bb431
+0f3706e2d2d7f2bb17d04dda518a4fe8181f9833
 
 submodule config:
-+1259902ec92fdc66c5cc60b19148a78c3941f43e docs/boilerplate (heads/main)
++41862fa5fb846466fba46a36faf67e2a77c2bfc5 docs/boilerplate (heads/main)
 -->
