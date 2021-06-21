@@ -6,7 +6,7 @@
 
 ==== Prepare your {partner-company-name} account
 
-To use this Quick Start, you need a {partner-product-short-name} account.
+To use this Quick Start, you must have a {partner-product-short-name} account. See the link:#_deployment_steps[Deployment steps] section later in this guide. 
 
 // ==== Prepare for the deployment
 

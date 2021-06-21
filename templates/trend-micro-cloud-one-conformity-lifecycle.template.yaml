@@ -1,13 +1,13 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: >-
-  Deploy Trend Micro Cloud One Conformity LifeCycle hook in AWS Control Tower.
+  Deploy Trend Micro Cloud One Conformity life cycle hook in AWS Control Tower.
   **WARNING** This template creates resources in your AWS account. You will be
   billed for the AWS resources used if you create a stack from this template.
   (qs-1s0rohedo)
 
 Metadata:
   QuickStartDocumentation:
-    EntrypointName: "Parameters for deploying into an AWS Control Tower"
+    EntrypointName: "Parameters for deploying into AWS Control Tower"
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:
@@ -50,7 +50,7 @@ Parameters:
       - ap-southeast-2
       - eu-west-1
       - us-west-2
-    Description: Cloud One Conformity region endpoint for your account.
+    Description: Cloud One Conformity Region endpoint for your account.
     AllowedPattern: ".+"
 
   LogRetention:
@@ -81,24 +81,33 @@ Parameters:
   QSS3BucketName:
     Type: String
     Description:
-      "S3 bucket name for the Quick Start assets. Quick Start bucket name can
-      include numbers, lowercase letters, uppercase letters, and hyphens (-). It
-      cannot start or end with a hyphen (-)."
+      "Name of the S3 bucket for your copy of the Quick Start assets. 
+      Keep the default name unless you are customizing the template. 
+      Changing the name updates code references to point to a new Quick 
+      Start location. This name can include numbers, lowercase letters, 
+      uppercase letters, and hyphens, but do not start or end with a hyphen (-). 
+      See https://aws-quickstart.github.io/option1.html."
     Default: "aws-quickstart"
     ConstraintDescription:
-      "Quick Start bucket name can include numbers, lowercase letters, uppercase
-      letters, and hyphens (-). It cannot start or end with a hyphen (-)."
+      "The Quick Start bucket name can include numbers, lowercase
+      letters, uppercase letters, and hyphens (-). It cannot start or end with a 
+      hyphen (-)."
     AllowedPattern: "^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$"
   QSS3KeyPrefix:
     Type: String
     Description:
-      "S3 key prefix for the Quick Start assets. Quick Start key prefix can
-      include numbers, lowercase letters, uppercase letters, hyphens (-), and
-      forward slash (/)."
+      "S3 key prefix that is used to simulate a directory for your copy of the 
+      Quick Start assets. Keep the default prefix unless you are customizing 
+      the template. Changing this prefix updates code references to point to 
+      a new Quick Start location. This prefix can include numbers, lowercase 
+      letters, uppercase letters, hyphens (-), and forward slashes (/). End with 
+      a forward slash. See https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html 
+      and https://aws-quickstart.github.io/option1.html."
     Default: "quickstart-ct-trend-micro-cloud-one-conformity/"
     ConstraintDescription:
-      "Quick Start key prefix can include numbers, lowercase letters, uppercase
-      letters, hyphens (-), and forward slash (/)."
+      "The Quick Start S3 key prefix can include numbers, lowercase letters,
+      uppercase letters, hyphens (-), and forward slashes (/). The prefix should
+      end with a forward slash (/)."
     AllowedPattern: "^[0-9a-zA-Z-/]*$"
 
 Conditions:
@@ -352,7 +361,7 @@ Resources:
     Properties:
       Description:
         "This is the KMS key used to encrypt/decrypt secrets for the Trend Micro
-        Cloud One Conformity lifecycle function"
+        Cloud One Conformity life cycle function"
       EnableKeyRotation: true
       KeyPolicy:
         Version: "2012-10-17"
