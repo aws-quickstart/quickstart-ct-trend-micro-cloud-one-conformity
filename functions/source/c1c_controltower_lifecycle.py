@@ -375,6 +375,8 @@ def lambda_handler(event, context):
                 update_policy(event["account_id"])
             elif event["InvokeAction"] == "remove_account_config":
                 remove_account_config(event["account_id"])
+            elif event["InvokeAction"] == "fresh_deploy": 
+                fresh_deploy(context.function_name)
             elif event["InvokeAction"] == "remove_all":
                 remove_all(context.function_name)
             else:
