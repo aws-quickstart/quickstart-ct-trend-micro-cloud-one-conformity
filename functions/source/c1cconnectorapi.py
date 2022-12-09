@@ -54,7 +54,6 @@ class CloudOneConformityConnector:
                     "access": {
                         "keys": {"roleArn": role_arn, "externalId": self.external_id}
                     },
-                    #"costPackage": False,
                     "hasRealTimeMonitoring": True,
                 },
             }
