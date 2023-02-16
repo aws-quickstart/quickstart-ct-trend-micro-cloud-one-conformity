@@ -45,11 +45,19 @@ Parameters:
 
   CloudOneConformityRegion:
     Type: String
-    Default: us-west-2
+    Default: us-1
     AllowedValues:
-      - ap-southeast-2
-      - eu-west-1
-      - us-west-2
+      - us-1
+      - in-1
+      - gb-1
+      - de-1
+      - au-1
+      - jp-1
+      - ca-1
+      - sg-1
+      - ap-southeast-2  #This values are of Legacy API
+      - eu-west-1 #This values are of Legacy API
+      - us-west-2 #This values are of Legacy API
     Description: Cloud One Conformity Region endpoint for your account.
     AllowedPattern: ".+"
 

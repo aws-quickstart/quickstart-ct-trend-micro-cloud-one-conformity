@@ -11,7 +11,7 @@ DELETE = "DELETE"
 
 class CloudOneConformityConnector:
     def __init__(self, api_key):
-        self.base_url = "https://{region}-api.cloudconformity.com/v1".format(
+        self.base_url = "https://conformity.{region}.cloudone.trendmicro.com/api".format(
             region=os.environ["ConformityRegionEndpoint"]
         )
         self.api_key = api_key
@@ -54,6 +54,7 @@ class CloudOneConformityConnector:
                     "access": {
                         "keys": {"roleArn": role_arn, "externalId": self.external_id}
                     },
+                    #"costPackage": False,
                     "hasRealTimeMonitoring": True,
                 },
             }
