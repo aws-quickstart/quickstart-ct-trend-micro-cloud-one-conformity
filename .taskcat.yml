@@ -5,8 +5,8 @@ project:
 tests:
   onboarding-us-west-2:
     parameters:
-      ApiKey: ''
+      ApiKey: override
       CloudOneConformityRegion: 'us-west-2'
     regions:
       - us-west-2
-    template: trend-micro-cloud-one-conformity-lifecycle.template.yaml
+    template: templates/trend-micro-cloud-one-conformity-lifecycle.template.yaml
