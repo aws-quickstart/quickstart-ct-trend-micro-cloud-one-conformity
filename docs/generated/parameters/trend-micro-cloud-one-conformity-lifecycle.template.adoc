@@ -1,0 +1,16 @@
+
+.Control tower lifecycle event handler configuration
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|APIKey
+(`ApiKey`)|`**__Requires input__**`|Cloud One Conformity API key.|Cloud one conformity region
+(`CloudOneConformityRegion`)|`us-west-2`|Cloud One Conformity Region endpoint for your account.|Log retention period
+(`LogRetention`)|`Forever`|How long to retain logs from the control tower lifecycle event handler.
+|===
+.(Optional) AWS Quick Start configuration
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|Quick Start S3 bucket name
+(`QSS3BucketName`)|`aws-quickstart`|Name of the S3 bucket for your copy of the Quick Start assets. Keep the default name unless you are customizing the template. Changing the name updates code references to point to a new Quick Start location. This name can include numbers, lowercase letters, uppercase letters, and hyphens, but do not start or end with a hyphen (-). See https://aws-quickstart.github.io/option1.html.|Quick Start S3 key prefix
+(`QSS3KeyPrefix`)|`quickstart-ct-trend-micro-cloud-one-conformity/`|S3 key prefix that is used to simulate a directory for your copy of the Quick Start assets. Keep the default prefix unless you are customizing the template. Changing this prefix updates code references to point to a new Quick Start location. This prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slashes (/). End with a forward slash. See https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html and https://aws-quickstart.github.io/option1.html.
+|===
