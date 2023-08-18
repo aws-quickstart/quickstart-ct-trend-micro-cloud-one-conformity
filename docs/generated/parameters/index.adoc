@@ -1,0 +1,3 @@
+
+=== Parameters for deploying into AWS Control Tower
+include::trend-micro-cloud-one-conformity-lifecycle.template.adoc[]
