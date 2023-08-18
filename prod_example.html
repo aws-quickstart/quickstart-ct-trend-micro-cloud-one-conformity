@@ -864,9 +864,12 @@ p.footer-text a{color:#d7d8d8}
 </ul>
 </li>
 <li><a href="#_deployment_steps">Deployment steps</a></li>
-<li><a href="#_postdeployment_steps">Postdeployment steps</a></li>
+<li><a href="#_postdeployment_steps">Postdeployment steps</a>
+<ul class="sectlevel2">
 <li><a href="#_test_the_deployment">Test the deployment</a></li>
 <li><a href="#_cleanup">Cleanup</a></li>
+</ul>
+</li>
 <li><a href="#_self_host_the_partner_solution_content">Self-host the Partner Solution content</a></li>
 <li><a href="#_best_practices_for_using_conformity_on_aws">Best practices for using Conformity on AWS</a></li>
 <li><a href="#_troubleshooting">Troubleshooting</a></li>
@@ -923,9 +926,6 @@ Refer to the <a href="https://github.com/aws-quickstart/quickstart-ct-trend-micr
 <div class="paragraph">
 <p>This Partner Solution is for users who want to improve security and compliance posture for AWS infrastructure through automated checks and clear remediation steps. For more information, refer to <a href="https://www.trendmicro.com/en_us/business/products/hybrid-cloud/cloud-one-conformity.html" target="_blank" rel="noopener">Trend Cloud One Conformity</a>.</p>
 </div>
-<div class="paragraph">
-<p>This Amazon Web Services (AWS) Partner Solution deploys [&lt;product name&gt;](&lt;partner&#8217;s marketing product page&gt;) in the AWS Cloud so that &lt;purpose&gt;. This solution is for &lt;target users&gt; who want to &lt;do what&gt; so that &lt;why&gt;. For more information, refer to the [&lt;product name&gt; documentation](&lt;URL&gt;).</p>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -972,13 +972,7 @@ AWS Cloud.</p>
 <li>
 <p>The Lambda function registers the new AWS account with the Conformity endpoint.</p>
 </li>
-<li>
-<p>&lt;describe any additional components&gt;.</p>
-</li>
 </ul>
-</div>
-<div class="paragraph">
-<p><span class="small">* The template that deploys this Partner Solution into an existing VPC skips the components marked by asterisks and prompts you for your existing VPC configuration.</span></p>
 </div>
 </div>
 </div>
@@ -991,7 +985,7 @@ AWS Cloud.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://fwd.aws/G5pGn?" target="_blank" rel="noopener">Deploy Conformity</a>*. This option provisions Conformity in the management account of your AWS Control Tower environment.</p>
+<p><a href="https://fwd.aws/G5pGn?" target="_blank" rel="noopener">Deploy Conformity</a>. This option provisions Conformity in the management account of your AWS Control Tower environment.</p>
 </li>
 </ul>
 </div>
@@ -1020,7 +1014,7 @@ AWS Cloud.</p>
 <p>Choose the contract duration, provide the renewal settings, select the contract options to be activated with your contract, and choose <strong>Create contract</strong>.</p>
 <div class="imageblock">
 <div class="content">
-<img src="images/software_contract.png" alt="Software Contract">
+<img src="docs/deployment_guide/images/software_contract.png" alt="Software Contract">
 </div>
 </div>
 </li>
@@ -1034,7 +1028,7 @@ AWS Cloud.</p>
 <p>After your account is created, log in. On the Conformity home page, choose the <strong>Conformity</strong> tile. Skip the wizard that prompts you to add your first AWS account; the AWS Control Tower integration adds the account for you.</p>
 <div class="imageblock">
 <div class="content">
-<img src="images/conformity_tile.png" alt="Conformity tile">
+<img src="docs/deployment_guide/images/conformity_tile.png" alt="Conformity tile">
 </div>
 </div>
 </li>
@@ -1113,12 +1107,8 @@ Unless you&#8217;re customizing the Partner Solution templates or are instructed
 <div class="sect1">
 <h2 id="_postdeployment_steps">Postdeployment steps</h2>
 <div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_test_the_deployment">Test the deployment</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_test_the_deployment">Test the deployment</h3>
 <div class="paragraph">
 <p>After the AWS CloudFormation stack completes successfully, return to the Conformity console. Confirm that your accounts are imported and that the Conformity bot has started scanning your AWS accounts to alert you about any misconfigurations or posture concerns.</p>
 </div>
@@ -1129,10 +1119,8 @@ Unless you&#8217;re customizing the Partner Solution templates or are instructed
 <p>Also keep the Conformity role up-to-date. The Conformity bot is continuously improved to enhance visibility or add coverage for new AWS services. Sometimes, a new IAM permission is required for the role in each protected account. To update the role, modify the CloudFormation stack using the template URL provided in the <a href="#_deployment_steps">Deployment steps</a> section. The role is updated to the most recent version in all current and future enrolled accounts.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_cleanup">Cleanup</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_cleanup">Cleanup</h3>
 <div class="paragraph">
 <p>To remove the AWS Control Tower lifecycle hook, identify and delete the CloudFormation stack. Managed accounts that have already been added remain protected. Refer to the Conformity documentation for details about removing an account subscription.</p>
 </div>
@@ -1168,6 +1156,7 @@ Unless you&#8217;re customizing the Partner Solution templates or are instructed
 </div>
 <div class="paragraph">
 <p>Verify that the removal has been triggered for each account in your organization by reviewing the output logs. </p>
+</div>
 </div>
 </div>
 </div>
