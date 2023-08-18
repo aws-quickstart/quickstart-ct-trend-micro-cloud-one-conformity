@@ -1,0 +1,7 @@
+// Edit this placeholder text as necessary to describe the deployment options.
+
+This Partner Solution provides the following deployment option:
+
+* https://fwd.aws/G5pGn?[Deploy {partner-product-short-name}^]. This option provisions {partner-product-short-name} in the management account of your AWS Control Tower environment.
+
+This Partner Solution also lets you configure Classless Inter-Domain Routing (CIDR) blocks, instance types, and {partner-product-short-name} settings.
