@@ -9,13 +9,13 @@ This Partner Solution requires a subscription to the SaaS offering for {partner-
 . Open the page for the {partner-product-short-name} SaaS offering in https://aws.amazon.com/marketplace/pp/prodview-g232pyu6l55l4[AWS Marketplace^], and then choose *Continue to Subscribe*.
 . Choose the contract duration, provide the renewal settings, select the contract options to be activated with your contract, and choose *Create contract*.
 +
-image::../images/software_contract.png[Software Contract]
+image::../docs/deployment_guide/images/software_contract.png[Software Contract]
 
 . You are prompted to confirm the contract. If you agree to the pricing, choose *Pay Now*. You are redirected to the {partner-product-short-name} portal.
 . In the {partner-product-short-name} portal, continue to create your account. Choose the Region in which to host your data. Most organizations choose the Region closest to the majority of their workloads. Some other organizations may have compliance requirements that affect their Region choice.
 . After your account is created, log in. On the {partner-product-short-name} home page, choose the *Conformity* tile. Skip the wizard that prompts you to add your first AWS account; the AWS Control Tower integration adds the account for you.
 +
-image::../images/conformity_tile.png[{partner-product-short-name} tile]
+image::../docs/deployment_guide/images/conformity_tile.png[{partner-product-short-name} tile]
 
 NOTE: The process of adding current and future AWS Control Tower accounts to the {partner-product-short-name} console is automated. 
 

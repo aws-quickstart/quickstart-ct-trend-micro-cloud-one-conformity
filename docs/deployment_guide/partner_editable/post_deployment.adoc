@@ -1,8 +1,7 @@
 // Include any postdeployment steps here, such as steps necessary to test that the deployment was successful. If there are no postdeployment steps, leave this file empty.
 
 == Postdeployment steps
-
-== Test the deployment
+=== Test the deployment
 // If steps are required to test the deployment, add them here. If not, remove the heading
 After the AWS CloudFormation stack completes successfully, return to the {partner-product-short-name} console. Confirm that your accounts are imported and that the {partner-product-short-name} bot has started scanning your AWS accounts to alert you about any misconfigurations or posture concerns.
 
@@ -10,7 +9,7 @@ As a best practice for scanning your AWS accounts, prioritize high-severity find
 
 Also keep the {partner-product-short-name} role up-to-date. The {partner-product-short-name} bot is continuously improved to enhance visibility or add coverage for new AWS services. Sometimes, a new IAM permission is required for the role in each protected account. To update the role, modify the CloudFormation stack using the template URL provided in the link:#_deployment_steps[Deployment steps] section. The role is updated to the most recent version in all current and future enrolled accounts.
 
-== Cleanup
+=== Cleanup
 
 To remove the AWS Control Tower lifecycle hook, identify and delete the CloudFormation stack. Managed accounts that have already been added remain protected. Refer to the {partner-product-short-name} documentation for details about removing an account subscription.
 
