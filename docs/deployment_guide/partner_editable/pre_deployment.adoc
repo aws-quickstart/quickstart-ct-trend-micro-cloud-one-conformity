@@ -1,3 +1,27 @@
 //Include any predeployment steps here, such as signing up for a Marketplace AMI or making any changes to a partner account. If there are no predeployment steps, leave this file empty.
 
 == Predeployment steps
+=== Subscribe to the {partner-product-short-name}
+
+This Partner Solution requires a subscription to the SaaS offering for {partner-product-short-name} in AWS Marketplace.
+
+. Sign in to your AWS account.
+. Open the page for the {partner-product-short-name} SaaS offering in https://aws.amazon.com/marketplace/pp/prodview-g232pyu6l55l4[AWS Marketplace^], and then choose *Continue to Subscribe*.
+. Choose the contract duration, provide the renewal settings, select the contract options to be activated with your contract, and choose *Create contract*.
++
+image::../images/software_contract.png[Software Contract]
+
+. You are prompted to confirm the contract. If you agree to the pricing, choose *Pay Now*. You are redirected to the {partner-product-short-name} portal.
+. In the {partner-product-short-name} portal, continue to create your account. Choose the Region in which to host your data. Most organizations choose the Region closest to the majority of their workloads. Some other organizations may have compliance requirements that affect their Region choice.
+. After your account is created, log in. On the {partner-product-short-name} home page, choose the *Conformity* tile. Skip the wizard that prompts you to add your first AWS account; the AWS Control Tower integration adds the account for you.
++
+image::../images/conformity_tile.png[{partner-product-short-name} tile]
+
+NOTE: The process of adding current and future AWS Control Tower accounts to the {partner-product-short-name} console is automated. 
+
+[start=7]
+. In the {partner-product-short-name} console, choose the arrow next to your name in the top-right corner. Then choose *User settings > API Keys* from the left navigation and create a new API key. Ensure you save this string, as it cannot be retrieved later. This key is used to authenticate the automation from the AWS Control Tower management account to the {partner-product-short-name} API. For more information about generating an API key, refer to the https://cloudconformity.atlassian.net/wiki/spaces/HELP/pages/77463659/Public+API+-+API+Keys[{partner-product-short-name} documentation^].
+
+endif::marketplace_subscription[]
+// \Not to be edited
+
